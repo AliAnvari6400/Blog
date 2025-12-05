@@ -2,8 +2,8 @@
 services:
 
   # Django Project:
-  todoapp:
-    container_name: todoapp
+  backend:
+    container_name: backend
     build: .
     command: python3 manage.py runserver 0.0.0.0:8000
     volumes:
@@ -38,7 +38,7 @@ services:
      - "8089:8089"
     volumes:
       - ./core/locust:/mnt/locust
-    command: -f /mnt/locust/locustfile.py --master -H http://todoapp:8089
+    command: -f /mnt/locust/locustfile.py --master -H http://backend:8089
   
   worker:
     image: locustio/locust
@@ -62,7 +62,7 @@ services:
     volumes:
       - ./core:/app
     depends_on:
-      - todoapp
+      - backend
       - redis
   
   # Celery Beat:
@@ -72,7 +72,7 @@ services:
     volumes:
       - ./core:/app
     depends_on:
-      - todoapp
+      - backend
       - redis
 
 volumes:
