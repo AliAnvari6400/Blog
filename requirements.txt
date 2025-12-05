@@ -1,0 +1,44 @@
+django >3.2,<3.3
+python-decouple
+pillow
+djangorestframework
+markdown
+django-filter
+drf-yasg[validation]
+
+# rest_framework.authtoken
+djangorestframework-simplejwt
+django-mail-templated
+
+# cleaning code:
+black
+flake8
+
+# tests:
+pytest
+pytest-django
+
+# generate fake data:
+Faker
+
+# api access:
+django-cors-headers
+
+# background process:
+redis
+celery
+django-celery-beat
+
+# request:
+requests
+
+# cache:
+django-redis
+
+# production:
+gunicorn
+psycopg2-binary  # postgres adaptor for django
+
+
+
+#test3
