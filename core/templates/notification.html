@@ -1,0 +1,41 @@
+<html>
+<body>
+
+    {% if messages %}
+    {% for message in messages %}
+      <div id="message_container" class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %}" style="width:50%;text-align:center;position:relative;
+      left:23%;top:5px">{{ message|safe }}</div>
+    {% endfor %}
+    {% endif %}
+
+    {% if form.errors %}
+    <div class="alert alert-error">
+      <h4>Please fix the following errors</h4>
+      <ul>
+        {% for field in form %}
+          {% if field.errors %}
+            {% for error in field.errors %}
+              <li><a href="#id_{{ field.name }}" class="error">{{ error|escape }}</a></li>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+      {% if form.non_field_errors %}
+        {{ form.non_field_errors }}
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <script>
+        var message_ele = document.getElementById("message_container");
+        setTimeout(function(){ 
+        message_ele.style.display = "none"; 
+        }, 5000);
+    </script>     
+
+{%block content2%}
+
+{%endblock%}
+
+</body>
+</html>

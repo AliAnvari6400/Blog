@@ -1,0 +1,7 @@
+
+    <div class="single-post__tags">
+        {% for tag in tags %}
+        <span><a href="{% url 'blog:tag' tag_name=tag.name %}">{{tag.name}}</a></span>
+        {% endfor %}
+    </div>
+

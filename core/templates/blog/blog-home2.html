@@ -1,0 +1,153 @@
+{%extends 'base2.html'%}
+{%load static%}
+{% load blog_tags %}
+{% load humanize %}
+
+{%block content%}
+
+
+    <!-- Categories Section Begin -->
+    <section class="categories categories-grid spad">
+        <div class="categories__post">
+            <div class="container">
+                <div class="categories__grid__post">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8">
+                            <div class="breadcrumb__text">
+                                <div class="breadcrumb__option">
+                                    <a href="{% url "website:index" %}">Home</a>
+                                    <span>Blog</span>
+                                </div>
+                            </div>
+                            
+                            {%for post in posts%}
+                            <div class="categories__list__post__item">
+                                <div class="row">
+                                    
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="categories__post__item__pic set-bg"
+                                            data-setbg={{post.image.url}}>
+                                            <div class="post__meta">
+                                                <h4>{{post.published_date|date:'d'}}</h4>
+                                                <span>{{post.published_date|date:'M'}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="categories__post__item__text">
+                                            <span class="post__label">
+                                                {% for cat in post.category.all %}
+                                                <a href="{% url "blog:category" cat_name=cat.name %}">{{cat.name}} {%if not forloop.last%} | {%endif%}</a>
+                                                {% endfor %}
+                                            </span>
+                                            <h3><a href="{% url "blog:blog_single" pid=post.id %}">{{post.title}}</a></h3>
+                                            <ul class="post__widget">
+                                                <li>by <span>{{post.author}}</span></li>
+                                                <li>{{post.counted_views}} views</li>
+                                                <li>{% comment_count post %} Comments</li>
+                                                <li>{{post.published_date|naturalday}}</li>
+                                            </ul>
+                                            <p>{{post.content|snippet:100|safe}} ...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endfor%}
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="categories__pagination">
+                                        {% if posts.has_previous %}
+                                            {% if s_flag %}
+                                                <a href="?s={{s}}&page={{posts.previous_page_number}}">Previous</a>
+                                            {% else %}
+                                                <a href="?page={{posts.previous_page_number}}">Previous</a>
+                                            {% endif %}
+                                        {% endif %}
+
+                                        {% for i in totalpages %}
+                                            {% if posts.number == i %}
+                                                {% if s_flag %}
+                                                    <a href="?s={{s}}&page={{i}}" class="page-link">{{i}}</a>
+                                                {% else %}
+                                                    <a href="?page={{i}}" class="page-link">{{i}}</a>
+                                                {% endif %}
+                                            {% else %}
+                                                {% if s_flag %}
+                                                    <a href="?s={{s}}&page={{i}}" class="page-link">{{i}}</a>
+                                                {% else %}
+                                                    <a href="?page={{i}}" class="page-link">{{i}}</a>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% if posts.has_next %}
+                                            {% if s_flag %}
+                                                <a href="?s={{s}}&page={{posts.next_page_number}}">Next</a>
+                                            {% else %} 
+                                                <a href="?page={{posts.next_page_number}}">Next</a>
+                                            {% endif %}
+                                        {% endif %}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4">
+                            <div class="sidebar__item">
+                                <div class="sidebar__subscribe__item">
+									<form action="{% url "blog:search" %}" method="GET">
+			                            <input placeholder="Search Posts" name="s" type="text" class="email-input">
+			                            <button type="submit" class="site-btn">Search</button>
+			                        </form>
+                                </div>
+                                <br><br>
+
+                                {%include 'blog/blog_writer.html'%}
+
+                                {% comment %} <div class="sidebar__follow__item">
+                                    <div class="sidebar__item__title">
+                                        <h6>Follow me</h6>
+                                    </div>
+                                    <div class="sidebar__item__follow__links">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                        <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                        <a href="#"><i class="fa fa-instagram"></i></a>
+                                        <a href="#"><i class="fa fa-envelope-o"></i></a>
+                                    </div>
+                                </div> {% endcomment %}
+
+                                {% latestposts %}
+
+                                <div class="sidebar__item__banner">
+                                    <img src="{% static "template2/img/sidebar/banner.jpg" %}" alt="">
+                                </div>
+
+                                {% postcategories %}
+
+                                <div class="sidebar__subscribe__item">
+                                    <div class="sidebar__item__title">
+                                        <h6>Subscribe</h6>
+                                    </div>
+                                    {% include 'website/website-subscribe.html' %}
+                                </div>
+                                
+                                <br>
+                                <div class="sidebar__item__categories">
+                                    <div class="sidebar__item__title">
+                                        <h6>Tag Clouds</h6>
+                                    </div>
+                                    {% tagclouds %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Categories Section End -->
+
+{%endblock%}

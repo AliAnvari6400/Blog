@@ -23,6 +23,23 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+# new:
+from django.contrib import admin
+from django.urls import path,include
+from django.conf.urls.static import static
+from django.conf import settings
+from django.contrib.sitemaps.views import sitemap
+from website.sitemaps import StaticViewSitemap
+from blog.sitemaps import BlogSitemap
+import debug_toolbar
+
+sitemaps = {
+    "static": StaticViewSitemap,
+    "blog": BlogSitemap
+}
+
+
+
 # for api document
 schema_view = get_schema_view(
     openapi.Info(
@@ -59,6 +76,18 @@ urlpatterns = [
         schema_view.without_ui(cache_timeout=0),
         name="schema-json",
     ),
+    
+    
+    # new
+    path('website/',include('website.urls')),
+    path('blog/',include('blog.urls')),
+    path("sitemap.xml",sitemap,{"sitemaps": sitemaps},name="django.contrib.sitemaps.views.sitemap",),
+    path('robots.txt', include('robots.urls')),
+    path('__debug__/',include(debug_toolbar.urls)),
+    path('summernote/', include('django_summernote.urls')),
+    path('captcha/', include('captcha.urls')),
+    path('maintenance/',include('config.urls')),
+    
 ]
 
 if settings.DEBUG:

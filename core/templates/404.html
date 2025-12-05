@@ -1,0 +1,20 @@
+{% extends 'base2-2.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Section 404 Begin -->
+    <section class="section-404">
+        <div class="text-404">
+            <h1>404</h1>
+            <h3>Opps! This page Could Not Be Found!</h3>
+            <p>Sorry bit the page you are looking for does not exist, have been removed or name changed</p>
+            <form action="{% url "blog:search" %}" method="GET">
+                <input type="text" placeholder="Enter your keyword">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </section>
+    <!-- Section 404 End -->
+
+{% endblock %}

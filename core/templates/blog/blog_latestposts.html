@@ -1,0 +1,35 @@
+
+{% load static %}
+
+
+<div class="sidebar__feature__item">
+    <div class="sidebar__item__title">
+        <h6>Latest Posts</h6>
+    </div>
+    <div class="sidebar__feature__item__large set-bg"
+        data-setbg="{% static "template2/img/sidebar/feature-post.jpg" %}">
+        <div class="sidebar__feature__item__large--text">
+            {% comment %} <span>Dinner</span> {% endcomment %}
+            <h5><a href="#">This Japanese Way of Making Iced Coffee Is a Game...</a>
+            </h5>
+        </div>
+    </div>
+    <div class="sidebar__feature__item__list">
+        {% for post in posts %}
+        <div class="sidebar__feature__item__list__single">
+            <div class="post__meta">
+                <h4>{{post.published_date|date:'d'}}</h4>
+                <span>{{post.published_date|date:'M'}}</span>
+            </div>
+            <div class="post__text">
+                <span>
+                    {% for cat in post.category.all %}
+                    <a href="{% url "blog:category" cat_name=cat.name %}">{{cat.name}} {%if not forloop.last%} , {%endif%}</a>
+                    {% endfor %}
+                </span>
+                <h5><a href="{% url "blog:blog_single" pid=post.id %}">{{post.title}}</a></h5>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

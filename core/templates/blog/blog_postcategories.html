@@ -1,0 +1,11 @@
+
+<div class="sidebar__item__categories">
+    <div class="sidebar__item__title">
+        <h6>Categories</h6>
+    </div>
+    <ul>
+        {% for name,count in categories.items %}
+        <li><a href="{% url "blog:category" cat_name=name %}">{{name}} <span>{{count}}</span></a></li>
+        {% endfor %}
+    </ul>
+</div>

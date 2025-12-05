@@ -1,0 +1,7 @@
+
+    <p>Subscribe to our newsletter and get our newest updates right on your inbox.</p>
+    <form action="{% url 'website:newsletter' %}" method="post">
+        {% csrf_token %}
+        <input name="EMAIL" type="email" class="email-input" placeholder="Your email">
+        <button type="submit" class="site-btn">Subscribe</button>
+    </form>

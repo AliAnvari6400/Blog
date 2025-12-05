@@ -1,0 +1,166 @@
+{% load static %}
+{% load website_tags %}
+
+{% if posts.0 %}
+<div class="categories__post__item categories__post__item--large">
+    <div class="categories__post__item__pic set-bg"
+        data-setbg="{{posts.0.image.url}}">
+        <div class="post__meta">
+            <h4>{{posts.0.published_date|date:'d'}}</h4>
+            <span>{{posts.0.published_date|date:'M'}}</span>
+        </div>
+    </div>
+    <div class="categories__post__item__text">
+        <ul class="post__label--large">
+            {% for cat in posts.0.category.all %}
+            <li>
+                {{cat.name}}
+            </li>
+            {% endfor %}
+        </ul>
+        <h3><a href="{% url "blog:blog_single" pid=posts.0.id %}">{{posts.0.title}}</a></h3>
+        <ul class="post__widget">
+            <li>by <span>{{posts.0.author}}</span></li>
+            <li>{{posts.0.counted_views}} views</li>
+            <li>{{posts.0.published_date|date:'d M Y'}}</li>
+        </ul>
+        <p>{{posts.0.content|snippet:100|safe}} ...</p>
+        <a href="{% url "blog:blog_single" pid=posts.0.id %}" class="primary-btn">Read more</a>
+        <div class="post__social">
+            <span>Share</span>
+            <a href="#"><i class="fa fa-facebook"></i> <span>82</span></a>
+            <a href="#"><i class="fa fa-twitter"></i> <span>24</span></a>
+            <a href="#"><i class="fa fa-envelope-o"></i> <span>08</span></a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        {% if posts.1 %}
+        <div class="categories__post__item">
+            <div class="categories__post__item__pic small__item set-bg"
+                data-setbg={{posts.1.image.url}}>
+                <div class="post__meta">
+                    <h4>{{posts.1.published_date|date:'d'}}</h4>
+                    <span>{{posts.1.published_date|date:'M'}}</span>
+                </div>
+            </div>
+            <div class="categories__post__item__text">
+                <ul class="post__label--large">
+                    {% for cat in posts.1.category.all %}
+                    <li>
+                        {{cat.name}}
+                    </li>
+                    {% endfor %}
+                </ul>
+                <h3><a href="{% url "blog:blog_single" pid=posts.1.id %}">{{posts.1.title}}</a></h3>
+                <ul class="post__widget">
+                    <li>by <span>{{posts.1.author}}</span></li>
+                    <li>{{posts.1.counted_views}} views</li>
+                    <li>{{posts.1.published_date|date:'d M Y'}}</li>
+                </ul>
+                <p>{{posts.1.content|snippet:100|safe}} ...</p>
+            </div>
+        </div>
+        {% endif %}
+        {% if posts.2 %}
+        <div class="categories__post__item">
+            <div class="categories__post__item__pic set-bg"
+                data-setbg={{posts.2.image.url}}>
+                <div class="post__meta">
+                    <h4>{{posts.2.published_date|date:'d'}}</h4>
+                    <span>{{posts.2.published_date|date:'M'}}</span>
+                </div>
+            </div>
+            <div class="categories__post__item__text">
+                <ul class="post__label--large">
+                    {% for cat in posts.2.category.all %}
+                    <li>
+                        {{cat.name}}
+                    </li>
+                    {% endfor %}
+                </ul>
+                <h3><a href="{% url "blog:blog_single" pid=posts.2.id %}">{{posts.2.title}}</a></h3>
+                <ul class="post__widget">
+                    <li>by <span>{{posts.2.author}}</span></li>
+                    <li>{{posts.2.counted_views}} views</li>
+                    <li>{{posts.2.published_date|date:'d M Y'}}</li>
+                </ul>
+                <p>{{posts.2.content|snippet:100|safe}} ...</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        {% if posts.3 %}
+        <div class="categories__post__item">
+            <div class="categories__post__item__pic smaller__large set-bg"
+                data-setbg={{posts.3.image.url}}>
+                <div class="post__meta">
+                    <h4>{{posts.3.published_date|date:'d'}}</h4>
+                    <span>{{posts.3.published_date|date:'M'}}</span>
+                </div>
+            </div>
+            <div class="categories__post__item__text">
+                <ul class="post__label--large">
+                    {% for cat in posts.3.category.all %}
+                    <li>
+                        {{cat.name}}
+                    </li>
+                    {% endfor %}
+                </ul>
+                <h3><a href="{% url "blog:blog_single" pid=posts.3.id %}">{{posts.3.title}}</a>
+                </h3>
+                <ul class="post__widget">
+                    <li>by <span>{{posts.3.author}}</span></li>
+                    <li>{{posts.3.counted_views}} views</li>
+                    <li>{{posts.3.published_date|date:'d M Y'}}</li>
+                </ul>
+                <p>{{posts.3.content|snippet:100|safe}} ...</p>
+            </div>
+        </div>
+        {% endif %}
+        <div class="categories__post__item__small">
+            <img src="{% static "template2/img/categories/categories-post/quote.png" %}" alt="">
+            <p>Lorem ipsum dolor amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt labore et dolore magna aliqua gravida.</p>
+            <div class="posted__by">Elena T.Jaivy</div>
+        </div>
+        {% if posts.4 %}
+        <div class="categories__post__item">
+            <div class="categories__post__item__pic smaller__large set-bg"
+                data-setbg={{posts.4.image.url}}>
+                <div class="post__meta">
+                    <h4>{{posts.4.published_date|date:'d'}}</h4>
+                    <span>{{posts.4.published_date|date:'M'}}</span>
+                </div>
+            </div>
+            <div class="categories__post__item__text">
+                <ul class="post__label--large">
+                    {% for cat in posts.4.category.all %}
+                    <li>
+                        {{cat.name}}
+                    </li>
+                    {% endfor %}
+                </ul>
+                <h3><a href="{% url "blog:blog_single" pid=posts.4.id %}">{{posts.4.title}}</a></h3>
+                <ul class="post__widget">
+                    <li>by <span>{{posts.4.author}}</span></li>
+                    <li>{{posts.4.counted_views}} views</li>
+                    <li>{{posts.4.published_date|date:'d M Y'}}</li>
+                </ul>
+                <p>{{posts.4.content|snippet:100|safe}} ...</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="col-lg-12 text-center">
+        <div class="load__more__btn">
+            <a href="{% url "blog:blog_home" %}">Read more</a>
+        </div>
+    </div>
+</div>

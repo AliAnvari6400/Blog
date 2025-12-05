@@ -39,12 +39,24 @@ ALLOWED_HOSTS = ["188.121.119.203", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
+    'multi_captcha_admin',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django.contrib.humanize',
+    'django_extensions',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+    'robots',
+    'debug_toolbar',
+    'taggit',    
+    'django_summernote',
+    'captcha',
+    'website',
+    'blog',
     "accounts",
     "todo",
     "rest_framework",
@@ -53,7 +65,8 @@ INSTALLED_APPS = [
     "drf_yasg",
     "mail_templated",
     "corsheaders",
-    "django_celery_beat",
+    "django_celery_beat",    
+    'compressor'
 ]
 
 MIDDLEWARE = [
