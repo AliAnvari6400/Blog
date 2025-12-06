@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'compressor'
 ]
 
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -78,6 +79,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    'config.middleware.MaintenanceModeMiddleware',
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -242,3 +245,61 @@ CACHES = {
         },
     }
 }
+
+#robots
+ROBOTS_USE_HOST = False
+ROBOTS_USE_SITEMAP = False
+
+#summernote config
+SUMMERNOTE_THEME = 'bs4'
+SUMMERNOTE_CONFIG = {
+    # Using SummernoteWidget - iframe mode, default
+    'iframe': True,
+
+    # You can put custom Summernote settings
+    'summernote': {
+        # As an example, using Summernote Air-mode
+        'airMode': False,
+
+        # Change editor size
+        'width': '300%',
+        'height': '380',
+
+        # Toolbar customization
+        # https://summernote.org/deep-dive/#custom-toolbar-popover
+        'toolbar': [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']],
+        ],
+    },
+}
+
+#captcha in admin
+MULTI_CAPTCHA_ADMIN = {
+    'engine': 'simple-captcha',
+}
+
+
+# Email:
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'anvaritest@gmail.com'
+EMAIL_HOST_PASSWORD = 'qsqx hbkz ffdd fvfu '
+
+# maintenance mode:
+MAINTENANCE_MODE = 0
+
+## X-Frame-Options
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+
+# sites framework
+SITE_ID = 1
