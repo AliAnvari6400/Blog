@@ -50,7 +50,14 @@
                 <li><a href="{% url "website:contact" %}">Contact</a></li>
                 <li> 
                     {% if request.user.is_authenticated %}
-                    <a href="{% url 'accounts:logout' %}?next={{request.path}}">logout</a>
+                    
+                    <!--for logoutview in django 5.2 -->
+                    <a href="#" onclick="document.getElementById('logout-form').submit();">Log out</a>
+                    <form id="logout-form" action="{% url 'accounts:logout' %}?next={{request.path}}" method="post" style="display:none;">
+                     {% csrf_token %}
+                    </form>
+
+                    {% comment %} <a href="{% url 'accounts:logout' %}?next={{request.path}}">logout</a> {% endcomment %}
                     <p>logged in as {{request.user.username}}</p>
                     {% else %}
                     <a href="{% url 'accounts:login' %}?next={{request.path}}">login / signUp</a>
@@ -117,7 +124,13 @@
                 <div class="col-lg-3 col-md-3">
                     <div class="header__btn">
                         {% if request.user.is_authenticated %}
-                        <a href="{% url 'accounts:logout' %}?next={{request.path}}" class="primary-btn">logout</a>
+
+                        <a href="#" onclick="document.getElementById('logout-form').submit();" class="primary-btn">Logout</a>
+                        <form id="logout-form" action="{% url 'accounts:logout' %}?next={{request.path}}" method="post" style="display:none;">
+                        {% csrf_token %}
+                        </form>
+
+                        {% comment %} <a href="{% url 'accounts:logout' %}?next={{request.path}}" class="primary-btn">logout</a> {% endcomment %}
                         <p>logged in as {{request.user.username}}</p>
                         {% else %}
                         <a href="{% url 'accounts:login' %}?next={{request.path}}" class="primary-btn">login / signUp</a>
