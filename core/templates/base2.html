@@ -58,7 +58,7 @@
                     </form>
 
                     {% comment %} <a href="{% url 'accounts:logout' %}?next={{request.path}}">logout</a> {% endcomment %}
-                    <p>logged in as {{request.user.username}}</p>
+                    <p>logged in as {{request.user}}</p>
                     {% else %}
                     <a href="{% url 'accounts:login' %}?next={{request.path}}">login / signUp</a>
                     {% endif %}  
@@ -131,7 +131,7 @@
                         </form>
 
                         {% comment %} <a href="{% url 'accounts:logout' %}?next={{request.path}}" class="primary-btn">logout</a> {% endcomment %}
-                        <p>logged in as {{request.user.username}}</p>
+                        <p>logged in as {{request.user}}</p>
                         {% else %}
                         <a href="{% url 'accounts:login' %}?next={{request.path}}" class="primary-btn">login / signUp</a>
                         {% endif %}  

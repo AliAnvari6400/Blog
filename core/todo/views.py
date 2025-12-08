@@ -30,7 +30,7 @@ class MyLoginRequiredMixin(LoginRequiredMixin):
 # Combined CreateView and ListView
 class TaskView(MyLoginRequiredMixin, CreateView, ListView):
     model = Task
-    template_name = "todo/task.html"
+    template_name = "blog/blog-single2.html"
     success_url = "/todo/task/"
     context_object_name = "tasks"
     paginate_by = 50
