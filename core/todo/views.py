@@ -1,6 +1,7 @@
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Task
+from blog.models import Post
 from accounts.models import Profile
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
@@ -14,6 +15,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import Http404
 import requests
 from django.http import JsonResponse
+from django.urls import reverse
 
 # from django.core.cache import cache
 from django.views.decorators.cache import cache_page
@@ -30,19 +32,30 @@ class MyLoginRequiredMixin(LoginRequiredMixin):
 # Combined CreateView and ListView
 class TaskView(MyLoginRequiredMixin, CreateView, ListView):
     model = Task
-    template_name = "blog/blog-single2.html"
-    success_url = "/todo/task/"
+    template_name = "todo/task.html"
+    # success_url = "/todo/task/"
     context_object_name = "tasks"
     paginate_by = 50
     form_class = TaskForm
-
+    
+    def get_success_url(self):
+        return reverse("todo:task", kwargs={'pid': self.object.post.id})
+    
     def get_queryset(self):
-        queryset = super().get_queryset()
-        current_user = self.request.user
-        queryset = queryset.filter(author__user=current_user)
-        return queryset.order_by("-created_date")
-
-    def get_initial(self):
+        pid = self.kwargs['pid']
+        user = self.request.user
+        return (
+        Task.objects
+        .filter(post__id=pid, author__user=user)
+        .order_by('-created_date')
+        )
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['post'] = Post.objects.get(id=self.kwargs['pid'])
+        return context
+    
+    def get_initial(self,**kwargs):
         initial = super().get_initial()
         if self.request.user.is_authenticated:
             initial["author"] = Profile.objects.get(user=self.request.user)
@@ -57,14 +70,16 @@ class TaskView(MyLoginRequiredMixin, CreateView, ListView):
         )
         user.user_permissions.add(view_permission)
         return super().form_valid(form)
-
-
+    
 class TaskEditView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Task
     fields = ["title"]
-    success_url = "/todo/task/"
+    #success_url = "/todo/task/"
     permission_required = "todo.view_task"
 
+    def get_success_url(self):
+        return reverse("todo:task", kwargs={'pid': self.object.post.id})
+    
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(author=Profile.objects.get(user=self.request.user))
@@ -82,9 +97,12 @@ class TaskEditView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class TaskDeleteView(MyLoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Task
-    success_url = "/todo/task/"
+    #success_url = "/todo/task/"
     permission_required = "todo.view_task"
 
+    def get_success_url(self):
+        return reverse("todo:task", kwargs={'pid': self.object.post.id})
+    
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(author=Profile.objects.get(user=self.request.user))
@@ -103,10 +121,13 @@ class TaskDeleteView(MyLoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 class TaskCompleteView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Task
     fields = ["status"]
-    success_url = "/todo/task/"
+    #success_url = "/todo/task/"
     template_name = "todo/task_complete.html"
     permission_required = "todo.view_task"
 
+    def get_success_url(self):
+        return reverse("todo:task", kwargs={'pid': self.object.post.id})
+    
     def form_valid(self, form):
         instance = form.save(commit=False)
         if instance.status is False:

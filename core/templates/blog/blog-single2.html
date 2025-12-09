@@ -109,65 +109,6 @@
                         </div>
                     </div>
              
-              <!--task in comment area-->
-              {% comment %} {% for task in tasks %}
-              <ul class="list-group list-group-horizontal rounded-0 bg-transparent">
-                <li class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
-                  <a href="{% url 'todo:task-complete' pk=task.id %}" title="complete todo">
-                    <div class="form-check"> 
-                      <input
-                      class="form-check-input me-0"
-                      type="checkbox"
-                      value=''
-                      id="flexCheckChecked1"
-                      aria-label="..."
-                      {% if task.status == True %}
-                      checked
-                      {% endif %}
-                      disabled
-                      />
-                    </div>
-                  </a>
-                </li>
-                <li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
-                  <p class="lead fw-normal mb-0">{{task.id}} - {{task.title}} </p>
-                </li>
-                <li class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent">
-                  <div class="d-flex flex-row justify-content-end mb-1">              
-                    <a href="{% url 'todo:task-edit' pk=task.id %}" class="text-info" data-mdb-toggle="tooltip" title="Edit todo"><i class="fas fa-pencil-alt me-3"></i></a>
-                    <a href="{% url 'todo:task-delete' pk=task.id %}" class="text-danger" data-mdb-toggle="tooltip" title="Delete todo"><i class="fas fa-trash-alt"></i></a> 
-                  </div>
-                  <div class="text-end text-muted">
-                    <a href="#!" class="text-muted" data-mdb-toggle="tooltip" title="Created date">
-                      <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>{{task.created_date}}</p></a>
-                      <p> {{task.author}} </p>
-                  </div>
-                </li>
-              </ul>
-              {% endfor %}
-               {% endcomment %}
-                    
-
-                    {% if comments %}
-                    <div class="single-post__comment">
-                        <div class="widget__title">
-                            <h4>{{comments|length}} Comments</h4>
-                        </div>
-                        {% for task in tasks %}
-                        <div class="single-post__comment__item">
-                            <div class="single-post__comment__item__pic">
-                                <img src="{% static "template2/img/categories/single-post/comment/comment-1.jpg" %}" alt="">
-                            </div>
-                            <div class="single-post__comment__item__text">
-                                <h5>{{task.title}}</h5>
-                                <span>{{task.created_date|naturalday}}</span>
-                                {% comment %} <p>{{comment.message}}</p> {% endcomment %}
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-
                     
                     {% if comments %}
                     <div class="single-post__comment">
