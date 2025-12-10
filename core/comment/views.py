@@ -19,7 +19,7 @@ from django.urls import reverse
 
 # from django.core.cache import cache
 from django.views.decorators.cache import cache_page
-from todo.tasks import add
+from comment.tasks import add
 from django.http import HttpResponse
 
 
@@ -32,14 +32,14 @@ class MyLoginRequiredMixin(LoginRequiredMixin):
 # Combined CreateView and ListView
 class TaskView(MyLoginRequiredMixin, CreateView, ListView):
     model = Task
-    template_name = "todo/task.html"
+    template_name = "comment/task.html"
     # success_url = "/todo/task/"
     context_object_name = "tasks"
     paginate_by = 50
     form_class = TaskForm
     
     def get_success_url(self):
-        return reverse("todo:task", kwargs={'pid': self.object.post.id})
+        return reverse("comment:task", kwargs={'pid': self.object.post.id})
     
     def get_queryset(self):
         pid = self.kwargs['pid']
@@ -75,10 +75,10 @@ class TaskEditView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Task
     fields = ["title"]
     #success_url = "/todo/task/"
-    permission_required = "todo.view_task"
+    permission_required = "comment.view_task"
 
     def get_success_url(self):
-        return reverse("todo:task", kwargs={'pid': self.object.post.id})
+        return reverse("comment:task", kwargs={'pid': self.object.post.id})
     
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -98,10 +98,10 @@ class TaskEditView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 class TaskDeleteView(MyLoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Task
     #success_url = "/todo/task/"
-    permission_required = "todo.view_task"
+    permission_required = "comment.view_task"
 
     def get_success_url(self):
-        return reverse("todo:task", kwargs={'pid': self.object.post.id})
+        return reverse("comment:task", kwargs={'pid': self.object.post.id})
     
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -122,8 +122,8 @@ class TaskCompleteView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView
     model = Task
     fields = ["status"]
     #success_url = "/todo/task/"
-    template_name = "todo/task_complete.html"
-    permission_required = "todo.view_task"
+    template_name = "comment/task_complete.html"
+    permission_required = "comment.view_task"
 
     def get_success_url(self):
         return reverse("todo:task", kwargs={'pid': self.object.post.id})
@@ -191,4 +191,4 @@ def weather(request):
 
 # Weather Show:
 class WeatherView(TemplateView):
-    template_name = "todo/weather.html"
+    template_name = "comment/weather.html"

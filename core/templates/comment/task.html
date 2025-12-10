@@ -8,15 +8,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <title>ToDoApp</title>
+  <title>comment</title>
   <!-- MDB icon -->
-  <link rel="icon" href="{% static "todo/img/mdb-favicon.ico" %}" type="image/x-icon" />
+  <link rel="icon" href="{% static "comment/img/mdb-favicon.ico" %}" type="image/x-icon" />
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
   <!-- Google Fonts Roboto -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
   <!-- MDB -->
-  <link rel="stylesheet" href="{% static "todo/css/bootstrap-to-do-list.min.css" %}" />
+  <link rel="stylesheet" href="{% static "comment/css/bootstrap-to-do-list.min.css" %}" />
 </head>
 
 <body>
@@ -49,7 +49,7 @@
               <p>{{request.user}}</p>
               <p class="h1 text-center mt-3 mb-4 pb-3 text-primary">
                 {% comment %} <i class="fas fa-check-square me-1"></i> {% endcomment %}
-                To Do App
+                Commenting APP
               </p>
               
 
@@ -57,7 +57,7 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex flex-row align-items-center">
-                      <form action="{% url 'todo:task' pid=post.id %}" method="post">
+                      <form action="{% url 'comment:task' pid=post.id %}" method="post">
                         {% csrf_token %}
                         {{form.author}}
                         {% comment %} {{form.post}} {% endcomment %}
@@ -92,7 +92,7 @@
               {% for task in tasks %}
               <ul class="list-group list-group-horizontal rounded-0 bg-transparent">
                 <li class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
-                  <a href="{% url 'todo:task-complete' pid=post.id pk=task.id %}" title="complete todo">
+                  <a href="{% url 'comment:task-complete' pid=post.id pk=task.id %}" title="complete todo">
                     <div class="form-check"> 
                       <input
                       class="form-check-input me-0"
@@ -113,8 +113,8 @@
                 </li>
                 <li class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent">
                   <div class="d-flex flex-row justify-content-end mb-1">              
-                    <a href="{% url 'todo:task-edit' pid=post.id pk=task.id %}" class="text-info" data-mdb-toggle="tooltip" title="Edit todo"><i class="fas fa-pencil-alt me-3"></i></a>
-                    <a href="{% url 'todo:task-delete' pid=post.id pk=task.id %}" class="text-danger" data-mdb-toggle="tooltip" title="Delete todo"><i class="fas fa-trash-alt"></i></a> 
+                    <a href="{% url 'comment:task-edit' pid=post.id pk=task.id %}" class="text-info" data-mdb-toggle="tooltip" title="Edit todo"><i class="fas fa-pencil-alt me-3"></i></a>
+                    <a href="{% url 'comment:task-delete' pid=post.id pk=task.id %}" class="text-danger" data-mdb-toggle="tooltip" title="Delete todo"><i class="fas fa-trash-alt"></i></a> 
                   </div>
                   <div class="text-end text-muted">
                     <a href="#!" class="text-muted" data-mdb-toggle="tooltip" title="Created date">
@@ -134,7 +134,7 @@
   <!-- End your project here-->
 
   <!-- MDB -->
-  <script type="text/javascript" src= "{% static "todo/js/mdb.min.js" %}"></script>
+  <script type="text/javascript" src= "{% static "comment/js/mdb.min.js" %}"></script>
   <!-- Custom scripts -->
   <script type="text/javascript"></script>
 </body>

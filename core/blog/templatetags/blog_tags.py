@@ -1,6 +1,7 @@
 from django import template
 register = template.Library()
-from blog.models import Post,Category,Comment
+from blog.models import Post,Category
+from comment.models import Task
 from django.utils import timezone
 
 @register.filter
@@ -33,6 +34,6 @@ def tagclouds():
 
 @register.simple_tag
 def comment_count(post):
-    comments = Comment.objects.filter(post = post, approved = True).count()
+    comments = Task.objects.filter(post = post).count()
     return comments
     

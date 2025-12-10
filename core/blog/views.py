@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect,reverse
-from blog.models import Post,Comment
+from blog.models import Post
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
-from blog.forms import CommentForm
+#from blog.forms import CommentForm
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 
@@ -73,22 +73,21 @@ def blog_single_view(request,pid):
     post.save()
     
     # comment form:
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.add_message(request,messages.SUCCESS,"ok")  
-        else: 
-            messages.add_message(request,messages.ERROR,"error")
-        return redirect(request.path)
-        #return HttpResponseRedirect('')   
-    form = CommentForm()
+    # if request.method == 'POST':
+    #     form = CommentForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         messages.add_message(request,messages.SUCCESS,"ok")  
+    #     else: 
+    #         messages.add_message(request,messages.ERROR,"error")
+    #     return redirect(request.path)
+    #     #return HttpResponseRedirect('')   
+    # form = CommentForm()
     
     # comments show:
-    comments = Comment.objects.filter(post = post.id, approved = True)
+    #comments = Comment.objects.filter(post = post.id, approved = True)
     
-    context = {'post':post,'after':after,'pre':pre,'post_after':post_after,'post_pre':post_pre,
-               'form':form,'comments':comments}
+    context = {'post':post,'after':after,'pre':pre,'post_after':post_after,'post_pre':post_pre}
     
     if request.user.is_authenticated:
         return render(request,'blog/blog-single2.html',context)

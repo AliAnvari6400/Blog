@@ -1,9 +1,9 @@
-from django import forms
-from blog.models import Comment
+# from django import forms
+# from blog.models import Comment
 
-class CommentForm(forms.ModelForm):
+# class CommentForm(forms.ModelForm):
     
-    class Meta:
-        model = Comment
-        fields = ['post','name','subject','email','message']
+#     class Meta:
+#         model = Comment
+#         fields = ['post','name','subject','email','message']
         

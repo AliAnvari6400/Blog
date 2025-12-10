@@ -9,18 +9,18 @@ from .views import (
     WeatherView,
 )
 
-app_name = "todo"
+app_name = "comment"
 
 urlpatterns = [
-    path("task/<int:pid>", TaskView.as_view(), name="task"),
-    path("task/<int:pid>/<int:pk>/edit/", TaskEditView.as_view(), name="task-edit"),
-    path("task/<int:pid>/<int:pk>/delete/", TaskDeleteView.as_view(), name="task-delete"),
+    path("<int:pid>", TaskView.as_view(), name="task"),
+    path("<int:pid>/<int:pk>/edit/", TaskEditView.as_view(), name="task-edit"),
+    path("<int:pid>/<int:pk>/delete/", TaskDeleteView.as_view(), name="task-delete"),
     path(
-        "task/<int:pid>/<int:pk>/complete/",
+        "<int:pid>/<int:pk>/complete/",
         TaskCompleteView.as_view(),
         name="task-complete",
     ),
-    path("api/v1/", include("todo.api.v1.urls")),
+    path("api/v1/", include("comment.api.v1.urls")),
     # Test Celery:
     path("test/", test, name="test"),
     # Test Redis for cache:

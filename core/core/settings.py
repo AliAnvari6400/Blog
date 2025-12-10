@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     'website',
     'blog',
     "accounts",
-    "todo",
+    "comment",
     "rest_framework",
     "rest_framework.authtoken",
     "django_filters",

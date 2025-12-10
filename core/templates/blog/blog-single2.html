@@ -27,7 +27,7 @@
                             <ul class="widget">
                                 <li>by {{post.author}}</li>
                                 <li>{{post.counted_views}} views</li>
-                                <li>{{comments|length}} Comments</li>
+                                <li>{% comment_count post %} Comments</li>
                                 <li>{{post.published_date|naturalday}}</li>
                             </ul>
                         </div>
@@ -110,7 +110,15 @@
                     </div>
              
                     
-                    {% if comments %}
+                    <div class="single-post__comment">
+                        <div class="widget__title">
+                            <a href="{% url "comment:task" pid=post.id %}" class="single-post__next">
+                            <h4>{% comment_count post %} Comments</h4>
+                        </div>
+                    </div>
+                    
+
+                    {% comment %} {% if comments %}
                     <div class="single-post__comment">
                         <div class="widget__title">
                             <h4>{{comments|length}} Comments</h4>
@@ -157,7 +165,9 @@
                             </div>
                             <button type="submit" class="site-btn">Submit</button>
                         </form>
-                    </div>
+                    </div> {% endcomment %}
+
+
                 </div>
             </div>
         </div>
