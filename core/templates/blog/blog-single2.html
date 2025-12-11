@@ -109,15 +109,9 @@
                         </div>
                     </div>
              
+                     {% latestcomments post %}                    
+                   
                     
-                    <div class="single-post__comment">
-                        <div class="widget__title">
-                            <a href="{% url "comment:task" pid=post.id %}" class="single-post__next">
-                            <h4>{% comment_count post %} Comments</h4>
-                        </div>
-                    </div>
-                    
-
                     {% comment %} {% if comments %}
                     <div class="single-post__comment">
                         <div class="widget__title">
@@ -136,10 +130,10 @@
                         </div>
                         {% endfor %}
                     </div>
-                    {% endif %}
+                    {% endif %} {% endcomment %}
 
                     
-                    <div class="single-post__leave__comment">
+                    {% comment %} <div class="single-post__leave__comment">
                         <div class="widget__title">
                             <h4>Leave a comment</h4>
                         </div>
@@ -166,7 +160,6 @@
                             <button type="submit" class="site-btn">Submit</button>
                         </form>
                     </div> {% endcomment %}
-
 
                 </div>
             </div>

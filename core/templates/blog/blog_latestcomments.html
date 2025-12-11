@@ -1,0 +1,24 @@
+{%load static%}
+{% load humanize %}
+
+
+                    {% if comments %}
+                    <div class="single-post__comment">
+                        <div class="widget__title">
+                            <a href="{% url "comment:task" pid=post.id %}" class="single-post__next">
+                            <h4>{{comments|length}} Comments</h4>
+                        </div>
+                        {% for comment in comments %}
+                        <div class="single-post__comment__item">
+                            {% comment %} <div class="single-post__comment__item__pic">
+                                <img src="{% static "template2/img/categories/single-post/comment/comment-1.jpg" %}" alt="">
+                            </div> {% endcomment %}
+                            <div class="single-post__comment__item__text">
+                                <h5>{{comment.title}}</h5>
+                                <span>{{comment.created_date|naturalday}}</span>
+                                <p>{{comment.author}}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}

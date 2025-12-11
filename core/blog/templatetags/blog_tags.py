@@ -13,6 +13,11 @@ def latestposts():
     posts = Post.objects.filter(published_date__lte = timezone.now(),status=1).order_by('published_date')[:2]
     return {'posts':posts}
 
+@register.inclusion_tag('blog/blog_latestcomments.html')
+def latestcomments(post):
+    comments = Task.objects.filter(post=post)[:2]
+    return {'comments':comments,'post':post}
+
 @register.inclusion_tag('blog/blog_postcategories.html')
 def postcategories():
     posts = Post.objects.filter(published_date__lte = timezone.now(),status=1)
