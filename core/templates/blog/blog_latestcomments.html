@@ -5,8 +5,8 @@
                     {% if comments %}
                     <div class="single-post__comment">
                         <div class="widget__title">
-                            <a href="{% url "comment:task" pid=post.id %}" class="single-post__next">
-                            <h4>{{comments|length}} Comments</h4>
+                            {% comment %} <a href="{% url "comment:task" pid=post.id %}" class="single-post__next"> {% endcomment %}
+                            <h4>{{comment_count}} Total Comments</h4>
                         </div>
                         {% for comment in comments %}
                         <div class="single-post__comment__item">
@@ -22,3 +22,10 @@
                         {% endfor %}
                     </div>
                     {% endif %}
+
+                    <div class="single-post__leave__comment">
+                        <div class="widget__title">
+                            <a href="{% url "comment:task" pid=post.id %}" class="single-post__next">
+                            <h4>Read more and Leave a comment</h4>
+                        </div>
+                    </div>

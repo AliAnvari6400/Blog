@@ -16,7 +16,8 @@ def latestposts():
 @register.inclusion_tag('blog/blog_latestcomments.html')
 def latestcomments(post):
     comments = Task.objects.filter(post=post)[:2]
-    return {'comments':comments,'post':post}
+    comment_count = Task.objects.filter(post = post).count()
+    return {'comments':comments,'post':post, 'comment_count':comment_count}
 
 @register.inclusion_tag('blog/blog_postcategories.html')
 def postcategories():
