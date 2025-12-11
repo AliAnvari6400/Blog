@@ -43,12 +43,19 @@ class TaskView(MyLoginRequiredMixin, CreateView, ListView):
     
     def get_queryset(self):
         pid = self.kwargs['pid']
-        user = self.request.user
         return (
         Task.objects
-        .filter(post__id=pid, author__user=user)
+        .filter(post__id=pid)
         .order_by('-created_date')
         )
+    # def get_queryset(self):
+    #     pid = self.kwargs['pid']
+    #     user = self.request.user
+    #     return (
+    #     Task.objects
+    #     .filter(post__id=pid, author__user=user)
+    #     .order_by('-created_date')
+    #     )
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

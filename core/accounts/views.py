@@ -29,4 +29,4 @@ class MyLoginView(LoginView):
         print(next_url)
         if next_url:
             return next_url
-        return reverse_lazy("todo:task")
+        return reverse_lazy("blog:blog_home")
