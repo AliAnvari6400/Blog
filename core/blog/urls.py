@@ -11,5 +11,6 @@ urlpatterns = [
     path('author/<str:author>/',blog_home_view, name='author'),
     path('search/',blog_home_view,name='search'),
     path('tag/<str:tag_name>/',blog_home_view,name='tag'),
-    path("rss/feed/", LatestEntriesFeed())
+    path("rss/feed/", LatestEntriesFeed()),
+
 ]

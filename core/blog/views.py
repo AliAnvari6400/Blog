@@ -96,3 +96,6 @@ def blog_single_view(request,pid):
             return render(request,'blog/blog-single2.html',context)
         else:
             return redirect('/accounts/login/')
+
+
+

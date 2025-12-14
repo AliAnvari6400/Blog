@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'captcha',
     'website',
     'blog',
+    'post',
     "accounts",
     "comment",
     "rest_framework",

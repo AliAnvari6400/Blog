@@ -62,6 +62,7 @@ urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
     path('website/',include('website.urls')),
     path('blog/',include('blog.urls')),
+    path('post/',include('post.urls')),
     
     # your API endpoints here
     path(
