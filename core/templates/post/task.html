@@ -57,12 +57,17 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex flex-row align-items-center">
+
+        
+
                       <form action="{% url 'post:task' %}" method="post">
                         {% csrf_token %}
                         {{form.author}}
                         <input type="text" name='title' class="form-control form-control-lg" id="exampleFormControlInput1" placeholder="Add new...">
                         <button type="submit" class="btn btn-primary">Add</button>
                       </form>
+
+
                     </div>
                     
                   </div>
