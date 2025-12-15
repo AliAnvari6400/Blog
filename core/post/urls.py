@@ -12,11 +12,11 @@ from .views import (
 app_name = "post"
 
 urlpatterns = [
-    path("<int:pid>", TaskView.as_view(), name="task"),
-    path("<int:pid>/<int:pk>/edit/", TaskEditView.as_view(), name="task-edit"),
-    path("<int:pid>/<int:pk>/delete/", TaskDeleteView.as_view(), name="task-delete"),
+    path("", TaskView.as_view(), name="task"),
+    path("<int:pk>/edit/", TaskEditView.as_view(), name="task-edit"),
+    path("<int:pk>/delete/", TaskDeleteView.as_view(), name="task-delete"),
     path(
-        "<int:pid>/<int:pk>/complete/",
+        "<int:pk>/complete/",
         TaskCompleteView.as_view(),
         name="task-complete",
     ),

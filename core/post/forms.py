@@ -6,7 +6,7 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ["author","post" ,"title"]
+        fields = ["author","title"]
         widgets = {
             "author": forms.HiddenInput(),
         }

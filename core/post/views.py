@@ -39,28 +39,20 @@ class TaskView(MyLoginRequiredMixin, CreateView, ListView):
     form_class = TaskForm
     
     def get_success_url(self):
-        return reverse("post:task", kwargs={'pid': self.object.post.id})
+        return reverse("post:task")
     
     def get_queryset(self):
-        pid = self.kwargs['pid']
+        user = self.request.user
         return (
         Task.objects
-        .filter(post__id=pid)
+        .filter(author__user=user)
         .order_by('-created_date')
         )
-    # def get_queryset(self):
-    #     pid = self.kwargs['pid']
-    #     user = self.request.user
-    #     return (
-    #     Task.objects
-    #     .filter(post__id=pid, author__user=user)
-    #     .order_by('-created_date')
-    #     )
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['post'] = Post.objects.get(id=self.kwargs['pid'])
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['post'] = Post.objects.get(id=self.kwargs['pid'])
+    #     return context
     
     def get_initial(self,**kwargs):
         initial = super().get_initial()
@@ -85,7 +77,7 @@ class TaskEditView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = "post.view_task"
 
     def get_success_url(self):
-        return reverse("post:task", kwargs={'pid': self.object.post.id})
+        return reverse("post:task")
     
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -108,7 +100,7 @@ class TaskDeleteView(MyLoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = "post.view_task"
 
     def get_success_url(self):
-        return reverse("post:task", kwargs={'pid': self.object.post.id})
+        return reverse("post:task")
     
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -133,7 +125,7 @@ class TaskCompleteView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView
     permission_required = "post.view_task"
 
     def get_success_url(self):
-        return reverse("post:task", kwargs={'pid': self.object.post.id})
+        return reverse("post:task")
     
     def form_valid(self, form):
         instance = form.save(commit=False)
