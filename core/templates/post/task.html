@@ -62,8 +62,10 @@
 
                       <form action="{% url 'post:task' %}" method="post">
                         {% csrf_token %}
-                        {{form.author}}
-                        <input type="text" name='title' class="form-control form-control-lg" id="exampleFormControlInput1" placeholder="Add new...">
+                        {% comment %} {{form.author}} {% endcomment %}
+                        {{ form.as_p }}
+                        {% comment %} <input type="text" name='title' class="form-control form-control-lg" id="exampleFormControlInput1" placeholder="Add new..."> {% endcomment %}
+
                         <button type="submit" class="btn btn-primary">Add</button>
                       </form>
 
@@ -92,10 +94,10 @@
                 <a href="#!" style="color: #23af89;" data-mdb-toggle="tooltip" title="Ascending"><i class="fas fa-sort-amount-down-alt ms-2"></i></a>
               </div> {% endcomment %}
               
-              {% for task in tasks %}
+              {% for post in posts %}
               <ul class="list-group list-group-horizontal rounded-0 bg-transparent">
                 <li class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
-                  <a href="{% url 'post:task-complete' pk=task.id %}" title="complete todo">
+                  <a href="{% url 'post:task-complete' pk=post.id %}" title="complete todo">
                     <div class="form-check"> 
                       <input
                       class="form-check-input me-0"
@@ -103,7 +105,7 @@
                       value=''
                       id="flexCheckChecked1"
                       aria-label="..."
-                      {% if task.status == True %}
+                      {% if post.status == True %}
                       checked
                       {% endif %}
                       disabled
@@ -112,18 +114,18 @@
                   </a>
                 </li>
                 <li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
-                  <p class="lead fw-normal mb-0">{{task.id}} - {{task.title}} </p>
+                  <p class="lead fw-normal mb-0">{{post.id}} - {{post.title}} </p>
                 </li>
                 <li class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent">
                   <div class="d-flex flex-row justify-content-end mb-1">              
-                    <a href="{% url 'post:task-edit' pk=task.id %}" class="text-info" data-mdb-toggle="tooltip" title="Edit todo"><i class="fas fa-pencil-alt me-3"></i></a>
-                    <a href="{% url 'post:task-delete' pk=task.id %}" class="text-danger" data-mdb-toggle="tooltip" title="Delete todo"><i class="fas fa-trash-alt"></i></a> 
+                    <a href="{% url 'post:task-edit' pk=post.id %}" class="text-info" data-mdb-toggle="tooltip" title="Edit todo"><i class="fas fa-pencil-alt me-3"></i></a>
+                    <a href="{% url 'post:task-delete' pk=post.id %}" class="text-danger" data-mdb-toggle="tooltip" title="Delete todo"><i class="fas fa-trash-alt"></i></a> 
                   </div>
                   <div class="text-end text-muted">
                     <a href="#!" class="text-muted" data-mdb-toggle="tooltip" title="Created date">
-                      <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>{{task.created_date}}</p></a>
-                      <p><img src="{{ task.author.image.url }}" alt="Profile Image" style="width:80px; height:80px; border-radius:50%;"></p>
-                      <p> {{task.author}} </p>
+                      <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>{{post.created_date}}</p></a>
+                      <p><img src="{{ post.author.image.url }}" alt="Profile Image" style="width:80px; height:80px; border-radius:50%;"></p>
+                      <p> {{post.author}} </p>
                   </div>
                 </li>
               </ul>

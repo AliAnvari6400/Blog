@@ -25,7 +25,8 @@ class PostForm(forms.ModelForm):
             'category',
             'status',
             'login_require',
+            
         ]
-        widgets = {
-            "author": forms.HiddenInput(),
-        }
+        # widgets = {
+        #     "author": forms.HiddenInput(),
+        # }

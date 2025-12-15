@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin,
 )
 from django.urls import reverse_lazy
-from .forms import TaskForm
+from .forms import TaskForm, PostForm
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
@@ -31,12 +31,12 @@ class MyLoginRequiredMixin(LoginRequiredMixin):
 
 # Combined CreateView and ListView
 class TaskView(MyLoginRequiredMixin, CreateView, ListView):
-    model = Task
+    model = Post
     template_name = "post/task.html"
     # success_url = "/todo/task/"
-    context_object_name = "tasks"
+    context_object_name = "posts"
     paginate_by = 50
-    form_class = TaskForm
+    form_class = PostForm
     
     def get_success_url(self):
         return reverse("post:task")
@@ -44,7 +44,7 @@ class TaskView(MyLoginRequiredMixin, CreateView, ListView):
     def get_queryset(self):
         user = self.request.user
         return (
-        Task.objects
+        Post.objects
         .filter(author__user=user)
         .order_by('-created_date')
         )
@@ -63,18 +63,18 @@ class TaskView(MyLoginRequiredMixin, CreateView, ListView):
     def form_valid(self, form):
         self.object = form.save()
         user = self.request.user
-        content_type = ContentType.objects.get_for_model(Task)
+        content_type = ContentType.objects.get_for_model(Post)
         view_permission = Permission.objects.get(
-            codename="view_task", content_type=content_type
+            codename="view_post", content_type=content_type
         )
         user.user_permissions.add(view_permission)
         return super().form_valid(form)
     
 class TaskEditView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    model = Task
+    model = Post
     fields = ["title"]
     #success_url = "/todo/task/"
-    permission_required = "post.view_task"
+    permission_required = "blog.view_post"
 
     def get_success_url(self):
         return reverse("post:task")
