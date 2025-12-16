@@ -23,10 +23,7 @@ class PostForm(forms.ModelForm):
             'content',
             'tags',
             'category',
-            'status',
-            'login_require',
-            
         ]
-        # widgets = {
-        #     "author": forms.HiddenInput(),
-        # }
+        widgets = {
+            "author": forms.HiddenInput(),
+        }

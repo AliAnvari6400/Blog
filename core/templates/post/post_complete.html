@@ -50,7 +50,7 @@
                     <div class="d-flex flex-row align-items-center">
                         <form method="post">{% csrf_token %}
                             {% comment %} {{ form.as_p }} {% endcomment %}
-                            <input type="text" name='status' value= {{task.status}} class="form-control form-control-lg" id="exampleFormControlInput1" placeholder="edit ...">
+                            <input type="text" name='status' value= {{post.status}} class="form-control form-control-lg" id="exampleFormControlInput1" placeholder="edit ...">
                             <button type="submit" class="btn btn-primary">Toggle</button>
                         </form>
                     </div>
@@ -60,7 +60,6 @@
               </div>
 
               <hr class="my-4">
-
 
 
             </div>

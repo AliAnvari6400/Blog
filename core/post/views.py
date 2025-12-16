@@ -32,7 +32,7 @@ class MyLoginRequiredMixin(LoginRequiredMixin):
 # Combined CreateView and ListView
 class TaskView(MyLoginRequiredMixin, CreateView, ListView):
     model = Post
-    template_name = "post/task.html"
+    template_name = "post/post.html"
     # success_url = "/todo/task/"
     context_object_name = "posts"
     paginate_by = 50
@@ -72,9 +72,11 @@ class TaskView(MyLoginRequiredMixin, CreateView, ListView):
     
 class TaskEditView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Post
-    fields = ["title"]
+    #fields = ["title"]
     #success_url = "/todo/task/"
     permission_required = "blog.view_post"
+    template_name = "post/post_form.html"
+    form_class = PostForm
 
     def get_success_url(self):
         return reverse("post:task")
@@ -95,9 +97,10 @@ class TaskEditView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 
 class TaskDeleteView(MyLoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    model = Task
+    model = Post
     #success_url = "/todo/task/"
-    permission_required = "post.view_task"
+    permission_required = "blog.view_post"
+    template_name = "post/post_confirm_delete.html"
 
     def get_success_url(self):
         return reverse("post:task")
@@ -118,11 +121,11 @@ class TaskDeleteView(MyLoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 
 
 class TaskCompleteView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    model = Task
+    model = Post
     fields = ["status"]
     #success_url = "/todo/task/"
-    template_name = "post/task_complete.html"
-    permission_required = "post.view_task"
+    template_name = "post/post_complete.html"
+    permission_required = "blog.view_post"
 
     def get_success_url(self):
         return reverse("post:task")
