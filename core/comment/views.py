@@ -32,7 +32,7 @@ class MyLoginRequiredMixin(LoginRequiredMixin):
 # Combined CreateView and ListView
 class TaskView(MyLoginRequiredMixin, CreateView, ListView):
     model = Task
-    template_name = "comment/task.html"
+    template_name = "comment/comment.html"
     # success_url = "/todo/task/"
     context_object_name = "tasks"
     paginate_by = 50
@@ -83,6 +83,7 @@ class TaskEditView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     fields = ["title"]
     #success_url = "/todo/task/"
     permission_required = "comment.view_task"
+    template_name = "comment/comment_form.html"
 
     def get_success_url(self):
         return reverse("comment:task", kwargs={'pid': self.object.post.id})
@@ -106,6 +107,7 @@ class TaskDeleteView(MyLoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Task
     #success_url = "/todo/task/"
     permission_required = "comment.view_task"
+    template_name = "comment/comment_confirm_delete.html"
 
     def get_success_url(self):
         return reverse("comment:task", kwargs={'pid': self.object.post.id})
@@ -129,11 +131,11 @@ class TaskCompleteView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView
     model = Task
     fields = ["status"]
     #success_url = "/todo/task/"
-    template_name = "comment/task_complete.html"
+    template_name = "comment/comment_complete.html"
     permission_required = "comment.view_task"
 
     def get_success_url(self):
-        return reverse("todo:task", kwargs={'pid': self.object.post.id})
+        return reverse("comment:task", kwargs={'pid': self.object.post.id})
     
     def form_valid(self, form):
         instance = form.save(commit=False)
