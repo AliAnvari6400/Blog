@@ -1,9 +1,9 @@
 from django.urls import path, include
 from .views import (
-    TaskEditView,
-    TaskDeleteView,
-    TaskCompleteView,
-    TaskView,
+    PostEditView,
+    PostDeleteView,
+    PostCompleteView,
+    PostView,
     test,
     weather,
     WeatherView,
@@ -12,13 +12,13 @@ from .views import (
 app_name = "post"
 
 urlpatterns = [
-    path("", TaskView.as_view(), name="task"),
-    path("<int:pk>/edit/", TaskEditView.as_view(), name="task-edit"),
-    path("<int:pk>/delete/", TaskDeleteView.as_view(), name="task-delete"),
+    path("", PostView.as_view(), name="post"),
+    path("<int:pk>/edit/", PostEditView.as_view(), name="post-edit"),
+    path("<int:pk>/delete/", PostDeleteView.as_view(), name="post-delete"),
     path(
         "<int:pk>/complete/",
-        TaskCompleteView.as_view(),
-        name="task-complete",
+        PostCompleteView.as_view(),
+        name="post-complete",
     ),
     path("api/v1/", include("post.api.v1.urls")),
     # Test Celery:

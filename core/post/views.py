@@ -1,6 +1,5 @@
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Task
 from blog.models import Post
 from accounts.models import Profile
 from django.contrib.auth.mixins import (
@@ -8,7 +7,7 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin,
 )
 from django.urls import reverse_lazy
-from .forms import TaskForm, PostForm
+from .forms import PostForm
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
@@ -30,16 +29,15 @@ class MyLoginRequiredMixin(LoginRequiredMixin):
 
 
 # Combined CreateView and ListView
-class TaskView(MyLoginRequiredMixin, CreateView, ListView):
+class PostView(MyLoginRequiredMixin, CreateView, ListView):
     model = Post
     template_name = "post/post.html"
-    # success_url = "/todo/task/"
     context_object_name = "posts"
     paginate_by = 50
     form_class = PostForm
     
     def get_success_url(self):
-        return reverse("post:task")
+        return reverse("post:post")
     
     def get_queryset(self):
         user = self.request.user
@@ -48,11 +46,6 @@ class TaskView(MyLoginRequiredMixin, CreateView, ListView):
         .filter(author__user=user)
         .order_by('-created_date')
         )
-    
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['post'] = Post.objects.get(id=self.kwargs['pid'])
-    #     return context
     
     def get_initial(self,**kwargs):
         initial = super().get_initial()
@@ -70,16 +63,14 @@ class TaskView(MyLoginRequiredMixin, CreateView, ListView):
         user.user_permissions.add(view_permission)
         return super().form_valid(form)
     
-class TaskEditView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class PostEditView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Post
-    #fields = ["title"]
-    #success_url = "/todo/task/"
     permission_required = "blog.view_post"
     template_name = "post/post_form.html"
     form_class = PostForm
 
     def get_success_url(self):
-        return reverse("post:task")
+        return reverse("post:post")
     
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -96,14 +87,13 @@ class TaskEditView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         return obj
 
 
-class TaskDeleteView(MyLoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+class PostDeleteView(MyLoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Post
-    #success_url = "/todo/task/"
     permission_required = "blog.view_post"
     template_name = "post/post_confirm_delete.html"
 
     def get_success_url(self):
-        return reverse("post:task")
+        return reverse("post:post")
     
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -120,15 +110,14 @@ class TaskDeleteView(MyLoginRequiredMixin, PermissionRequiredMixin, DeleteView):
         return obj
 
 
-class TaskCompleteView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class PostCompleteView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Post
     fields = ["status"]
-    #success_url = "/todo/task/"
     template_name = "post/post_complete.html"
     permission_required = "blog.view_post"
 
     def get_success_url(self):
-        return reverse("post:task")
+        return reverse("post:post")
     
     def form_valid(self, form):
         instance = form.save(commit=False)
@@ -137,7 +126,7 @@ class TaskCompleteView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView
         else:
             instance.status = False
         instance.save()
-        return super(TaskCompleteView, self).form_valid(form)
+        return super(PostCompleteView, self).form_valid(form)
 
     def get_queryset(self):
         queryset = super().get_queryset()
