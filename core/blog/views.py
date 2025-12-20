@@ -38,6 +38,50 @@ def blog_home_view(request,cat_name = None,author = None,tag_name = None):
     return render(request,'blog/blog-home2.html',context)
 
 
+#----------------------------------------------------------------------
+
+
+from django.urls import reverse_lazy
+from django.views.generic import ListView
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+)
+# customize LoginRequiredMixin for redirect to login page first
+class MyLoginRequiredMixin(LoginRequiredMixin):
+    def get_login_url(self):
+        return reverse_lazy("accounts:login")
+class blog_home_view(MyLoginRequiredMixin, ListView):
+    model = Post
+    template_name = 'blog/blog-home2.html'
+    context_object_name = "posts"
+    paginate_by = 2
+
+    def get_queryset(self):
+        queryset = Post.objects.filter(
+            published_date__lte=timezone.now(),
+            status=True
+        )
+
+        cat_name = self.kwargs.get('cat_name')
+        author = self.kwargs.get('author')
+        tag_name = self.kwargs.get('tag_name')
+        s = self.request.GET.get('s')
+
+        if tag_name:
+            queryset = queryset.filter(tags__name=tag_name)
+        if cat_name:
+            queryset = queryset.filter(category__name=cat_name)
+        if author:
+            queryset = queryset.filter(author__username=author)
+        if s:
+            queryset = queryset.filter(content__contains=s)
+
+        return queryset
+
+
+# --------------------------------------------------------
+
+
 def blog_single_view(request,pid):
     all_active_posts = Post.objects.filter(status = True, published_date__lte = timezone.now())
     l = len(all_active_posts)
@@ -71,21 +115,6 @@ def blog_single_view(request,pid):
     post = get_object_or_404(Post,id = pid,status = True, published_date__lte = timezone.now())
     post.counted_views += 1
     post.save()
-    
-    # comment form:
-    # if request.method == 'POST':
-    #     form = CommentForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         messages.add_message(request,messages.SUCCESS,"ok")  
-    #     else: 
-    #         messages.add_message(request,messages.ERROR,"error")
-    #     return redirect(request.path)
-    #     #return HttpResponseRedirect('')   
-    # form = CommentForm()
-    
-    # comments show:
-    #comments = Comment.objects.filter(post = post.id, approved = True)
     
     context = {'post':post,'after':after,'pre':pre,'post_after':post_after,'post_pre':post_pre}
     
