@@ -1,24 +1,26 @@
 from django.urls import path
-from .views import blog_home_view,blog_single_view
+from .views import BlogHomeView,BlogSingleView
 from blog.feeds import LatestEntriesFeed
 
 app_name = 'blog'
 
 urlpatterns = [
+    
+    
+    path('',BlogHomeView.as_view(),name='blog_home'),
+    path('category/<str:cat_name>/',BlogHomeView.as_view(), name='category'),
+    path('author/<str:author>/',BlogHomeView.as_view(), name='author'),
+    path('search/',BlogHomeView.as_view(),name='search'),
+    path('tag/<str:tag_name>/',BlogHomeView.as_view(),name='tag'),
+    path('<int:pid>',BlogSingleView.as_view(),name='blog_single'),
+    path("rss/feed/", LatestEntriesFeed()),
+    
+    
     #path('',blog_home_view,name='blog_home'),
-    
-    path('',blog_home_view.as_view(),name='blog_home'),
-    path('category/<str:cat_name>/',blog_home_view.as_view(), name='category'),
-    path('author/<str:author>/',blog_home_view.as_view(), name='author'),
-    path('search/',blog_home_view.as_view(),name='search'),
-    path('tag/<str:tag_name>/',blog_home_view.as_view(),name='tag'),
-    
-    
-    path('<int:pid>',blog_single_view,name='blog_single'),
+    # path('<int:pid>',blog_single_view,name='blog_single'),
     #path('category/<str:cat_name>/',blog_home_view, name='category'),
     #path('author/<str:author>/',blog_home_view, name='author'),
     #path('search/',blog_home_view,name='search'),
     #path('tag/<str:tag_name>/',blog_home_view,name='tag'),
-    path("rss/feed/", LatestEntriesFeed()),
-
+    
 ]
