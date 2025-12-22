@@ -1,6 +1,6 @@
-from django.contrib import admin
-from .models import Task
-from blog.models import Post
+# from django.contrib import admin
+# from .models import Task
+# from blog.models import Post
 
 
 # class PostAdmin(admin.ModelAdmin):
@@ -8,4 +8,4 @@ from blog.models import Post
 
 
 # Register your models here.
-#admin.site.register(Task)
+# admin.site.register(Task)

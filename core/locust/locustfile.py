@@ -10,7 +10,7 @@ class task_list(HttpUser):
         ).json()
 
         self.client.headers.update(
-            {"Authorization": f"Bearer {response.get('access',None)}"}
+            {"Authorization": f"Bearer {response.get('access', None)}"}
         )
 
     @task

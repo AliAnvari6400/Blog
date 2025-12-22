@@ -39,25 +39,25 @@ ALLOWED_HOSTS = ["188.121.119.203", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
-    'multi_captcha_admin',
+    "multi_captcha_admin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'django.contrib.humanize',
-    'django_extensions',
-    'django.contrib.sites',
-    'django.contrib.sitemaps',
-    'robots',
-    'debug_toolbar',
-    'taggit',    
-    'django_summernote',
-    'captcha',
-    'website',
-    'blog',
-    'post',
+    "django.contrib.humanize",
+    "django_extensions",
+    "django.contrib.sites",
+    "django.contrib.sitemaps",
+    "robots",
+    "debug_toolbar",
+    "taggit",
+    "django_summernote",
+    "captcha",
+    "website",
+    "blog",
+    "post",
     "accounts",
     "comment",
     "rest_framework",
@@ -66,8 +66,8 @@ INSTALLED_APPS = [
     "drf_yasg",
     "mail_templated",
     "corsheaders",
-    "django_celery_beat",    
-    'compressor'
+    "django_celery_beat",
+    "compressor",
 ]
 
 
@@ -81,7 +81,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    'config.middleware.MaintenanceModeMiddleware',
+    "config.middleware.MaintenanceModeMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -247,59 +247,56 @@ CACHES = {
     }
 }
 
-#robots
+# robots
 ROBOTS_USE_HOST = False
 ROBOTS_USE_SITEMAP = False
 
-#summernote config
-SUMMERNOTE_THEME = 'bs4'
+# summernote config
+SUMMERNOTE_THEME = "bs4"
 SUMMERNOTE_CONFIG = {
     # Using SummernoteWidget - iframe mode, default
-    'iframe': True,
-
+    "iframe": True,
     # You can put custom Summernote settings
-    'summernote': {
+    "summernote": {
         # As an example, using Summernote Air-mode
-        'airMode': False,
-
+        "airMode": False,
         # Change editor size
-        'width': '300%',
-        'height': '380',
-
+        "width": "300%",
+        "height": "380",
         # Toolbar customization
         # https://summernote.org/deep-dive/#custom-toolbar-popover
-        'toolbar': [
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
-            ['fontname', ['fontname']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['table', ['table']],
-            ['insert', ['link', 'picture', 'video']],
-            ['view', ['fullscreen', 'codeview', 'help']],
+        "toolbar": [
+            ["style", ["style"]],
+            ["font", ["bold", "underline", "clear"]],
+            ["fontname", ["fontname"]],
+            ["color", ["color"]],
+            ["para", ["ul", "ol", "paragraph"]],
+            ["table", ["table"]],
+            ["insert", ["link", "picture", "video"]],
+            ["view", ["fullscreen", "codeview", "help"]],
         ],
     },
 }
 
-#captcha in admin
+# captcha in admin
 MULTI_CAPTCHA_ADMIN = {
-    'engine': 'simple-captcha',
+    "engine": "simple-captcha",
 }
 
 
 # Email:
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'anvaritest@gmail.com'
-EMAIL_HOST_PASSWORD = 'qsqx hbkz ffdd fvfu '
+EMAIL_HOST_USER = "anvaritest@gmail.com"
+EMAIL_HOST_PASSWORD = "qsqx hbkz ffdd fvfu "
 
 # maintenance mode:
 MAINTENANCE_MODE = 0
 
 ## X-Frame-Options
-X_FRAME_OPTIONS = 'SAMEORIGIN'
+X_FRAME_OPTIONS = "SAMEORIGIN"
 
 
 # sites framework

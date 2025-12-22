@@ -7,7 +7,7 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ["author","title"]
+        fields = ["author", "title"]
         widgets = {
             "author": forms.HiddenInput(),
         }
@@ -17,12 +17,12 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = [
-            'author',
-            'image',
-            'title',
-            'content',
-            'tags',
-            'category',
+            "author",
+            "image",
+            "title",
+            "content",
+            "tags",
+            "category",
         ]
         widgets = {
             "author": forms.HiddenInput(),

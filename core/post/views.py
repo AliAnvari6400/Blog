@@ -35,19 +35,15 @@ class PostView(MyLoginRequiredMixin, CreateView, ListView):
     context_object_name = "posts"
     paginate_by = 50
     form_class = PostForm
-    
+
     def get_success_url(self):
         return reverse("post:post")
-    
+
     def get_queryset(self):
         user = self.request.user
-        return (
-        Post.objects
-        .filter(author__user=user)
-        .order_by('-created_date')
-        )
-    
-    def get_initial(self,**kwargs):
+        return Post.objects.filter(author__user=user).order_by("-created_date")
+
+    def get_initial(self, **kwargs):
         initial = super().get_initial()
         if self.request.user.is_authenticated:
             initial["author"] = Profile.objects.get(user=self.request.user)
@@ -62,7 +58,8 @@ class PostView(MyLoginRequiredMixin, CreateView, ListView):
         )
         user.user_permissions.add(view_permission)
         return super().form_valid(form)
-    
+
+
 class PostEditView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Post
     permission_required = "blog.view_post"
@@ -71,7 +68,7 @@ class PostEditView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse("post:post")
-    
+
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(author=Profile.objects.get(user=self.request.user))
@@ -94,7 +91,7 @@ class PostDeleteView(MyLoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse("post:post")
-    
+
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(author=Profile.objects.get(user=self.request.user))
@@ -118,7 +115,7 @@ class PostCompleteView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView
 
     def get_success_url(self):
         return reverse("post:post")
-    
+
     def form_valid(self, form):
         instance = form.save(commit=False)
         if instance.status is False:
@@ -144,26 +141,10 @@ class PostCompleteView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView
 
 
 # Test Celery task:
-# ---------------------------------
 def test(request):
     result = add.delay(3, 3)
     print(result.id)
     return HttpResponse("done")
-
-
-# ---------------------------------
-
-
-# Test Redis for cache:
-# ---------------------------------
-# def weather(request):
-#     API_KEY = '6075f690e844e83ffc96d4ddf40c8b18'
-#     city = 'Tehran'
-#     url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
-#     if cache.get('test') is None:
-#         response = requests.get(url)
-#         cache.set('test',response.json(),30)
-#     return JsonResponse(cache.get('test'))
 
 
 @cache_page(30)
@@ -175,9 +156,6 @@ def weather(request):
     url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
     response = requests.get(url)
     return JsonResponse(response.json())
-
-
-# ---------------------------------
 
 
 # Weather Show:

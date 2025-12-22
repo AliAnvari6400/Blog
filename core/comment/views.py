@@ -33,21 +33,17 @@ class MyLoginRequiredMixin(LoginRequiredMixin):
 class TaskView(MyLoginRequiredMixin, CreateView, ListView):
     model = Task
     template_name = "comment/comment.html"
-    # success_url = "/todo/task/"
     context_object_name = "tasks"
     paginate_by = 50
     form_class = TaskForm
-    
+
     def get_success_url(self):
-        return reverse("comment:task", kwargs={'pid': self.object.post.id})
-    
+        return reverse("comment:task", kwargs={"pid": self.object.post.id})
+
     def get_queryset(self):
-        pid = self.kwargs['pid']
-        return (
-        Task.objects
-        .filter(post__id=pid)
-        .order_by('-created_date')
-        )
+        pid = self.kwargs["pid"]
+        return Task.objects.filter(post__id=pid).order_by("-created_date")
+
     # def get_queryset(self):
     #     pid = self.kwargs['pid']
     #     user = self.request.user
@@ -56,13 +52,13 @@ class TaskView(MyLoginRequiredMixin, CreateView, ListView):
     #     .filter(post__id=pid, author__user=user)
     #     .order_by('-created_date')
     #     )
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['post'] = Post.objects.get(id=self.kwargs['pid'])
+        context["post"] = Post.objects.get(id=self.kwargs["pid"])
         return context
-    
-    def get_initial(self,**kwargs):
+
+    def get_initial(self, **kwargs):
         initial = super().get_initial()
         if self.request.user.is_authenticated:
             initial["author"] = Profile.objects.get(user=self.request.user)
@@ -77,17 +73,17 @@ class TaskView(MyLoginRequiredMixin, CreateView, ListView):
         )
         user.user_permissions.add(view_permission)
         return super().form_valid(form)
-    
+
+
 class TaskEditView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Task
     fields = ["title"]
-    #success_url = "/todo/task/"
     permission_required = "comment.view_task"
     template_name = "comment/comment_form.html"
 
     def get_success_url(self):
-        return reverse("comment:task", kwargs={'pid': self.object.post.id})
-    
+        return reverse("comment:task", kwargs={"pid": self.object.post.id})
+
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(author=Profile.objects.get(user=self.request.user))
@@ -105,13 +101,12 @@ class TaskEditView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class TaskDeleteView(MyLoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Task
-    #success_url = "/todo/task/"
     permission_required = "comment.view_task"
     template_name = "comment/comment_confirm_delete.html"
 
     def get_success_url(self):
-        return reverse("comment:task", kwargs={'pid': self.object.post.id})
-    
+        return reverse("comment:task", kwargs={"pid": self.object.post.id})
+
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(author=Profile.objects.get(user=self.request.user))
@@ -130,13 +125,12 @@ class TaskDeleteView(MyLoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 class TaskCompleteView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Task
     fields = ["status"]
-    #success_url = "/todo/task/"
     template_name = "comment/comment_complete.html"
     permission_required = "comment.view_task"
 
     def get_success_url(self):
-        return reverse("comment:task", kwargs={'pid': self.object.post.id})
-    
+        return reverse("comment:task", kwargs={"pid": self.object.post.id})
+
     def form_valid(self, form):
         instance = form.save(commit=False)
         if instance.status is False:
@@ -162,26 +156,10 @@ class TaskCompleteView(MyLoginRequiredMixin, PermissionRequiredMixin, UpdateView
 
 
 # Test Celery task:
-# ---------------------------------
 def test(request):
     result = add.delay(3, 3)
     print(result.id)
     return HttpResponse("done")
-
-
-# ---------------------------------
-
-
-# Test Redis for cache:
-# ---------------------------------
-# def weather(request):
-#     API_KEY = '6075f690e844e83ffc96d4ddf40c8b18'
-#     city = 'Tehran'
-#     url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
-#     if cache.get('test') is None:
-#         response = requests.get(url)
-#         cache.set('test',response.json(),30)
-#     return JsonResponse(cache.get('test'))
 
 
 @cache_page(30)
@@ -193,9 +171,6 @@ def weather(request):
     url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
     response = requests.get(url)
     return JsonResponse(response.json())
-
-
-# ---------------------------------
 
 
 # Weather Show:
