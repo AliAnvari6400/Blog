@@ -38,10 +38,11 @@ class TaskModelViewSet(viewsets.ModelViewSet):
     #     return Task.objects.filter(author__user=self.request.user)
 
     def get_queryset(self):
+        pid = self.kwargs["pid"]
         user = self.request.user
         if not user or not user.is_authenticated:
             return Task.objects.none()  # Avoid 500
-        return Task.objects.filter(author__user=user)
+        return Task.objects.filter(author__user=user, post__id=pid)
 
 
 # Weather API:

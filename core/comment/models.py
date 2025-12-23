@@ -21,5 +21,14 @@ class Task(models.Model):
     def get_snippet(self):
         return self.title[0:2]
 
+    # def get_absolute_api_url(self):
+    #     return reverse("comment:api-v1:task-detail", kwargs={"pk": self.pk})
+
     def get_absolute_api_url(self):
-        return reverse("comment:api-v1:task-detail", kwargs={"pk": self.pk})
+        return reverse(
+            "comment:api-v1:task-detail",
+            kwargs={
+                "pid": self.post_id,
+                "pk": self.pk,
+            },
+        )

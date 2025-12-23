@@ -8,6 +8,6 @@ router = DefaultRouter()
 router.register("task", TaskModelViewSet, basename="task")
 
 urlpatterns = [
-    path("", include(router.urls)),
+    path("<int:pid>/", include(router.urls)),
     path("weather/", WeatherAPIView.as_view(), name="weather"),
 ]

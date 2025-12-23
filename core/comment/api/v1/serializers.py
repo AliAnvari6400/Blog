@@ -23,9 +23,14 @@ class TaskSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ["author"]
 
+    # def get_absolute_url(self, obj):
+    #     request = self.context.get("request")
+    #     return request.build_absolute_uri(obj.pk)
+
     def get_absolute_url(self, obj):
         request = self.context.get("request")
-        return request.build_absolute_uri(obj.pk)
+        relative_url = obj.get_absolute_api_url()
+        return request.build_absolute_uri(relative_url) if request else relative_url
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)
