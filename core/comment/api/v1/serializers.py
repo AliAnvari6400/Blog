@@ -22,6 +22,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "updated_date",
         ]
         read_only_fields = ["author"]
+        ref_name = "CommentTaskSerializer"
 
     # def get_absolute_url(self, obj):
     #     request = self.context.get("request")
