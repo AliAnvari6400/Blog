@@ -4,6 +4,7 @@ import pytest
 
 from accounts.models import User, Profile
 from ..models import Task
+from blog.models import Post 
 
 
 @pytest.fixture
@@ -35,13 +36,19 @@ class TestTaskDetailApi:
     def test_task_unauthorized_response_401(self, api_client, common_user1):
         api_client.force_login(user=common_user1)
         profile = Profile.objects.get(user=common_user1)
+        post = Post.objects.create(
+            title="post title",
+            content="post body",
+            author=profile,
+        )
         task = Task.objects.create(
+            post=post,
             author=profile,
             title="test",
             status=True,
         )
         api_client.logout()  # logout user for test unauthorized
-        url = reverse("todo:api-v1:task-detail", kwargs={"pk": task.id})
+        url = reverse("comment:api-v1:task-detail", kwargs={"pid": post.id, "pk": task.id})
 
         # GET:
         response_get = api_client.get(url)
@@ -70,12 +77,18 @@ class TestTaskDetailApi:
     def test_task_create_by_user(self, api_client, common_user1):
         api_client.force_login(user=common_user1)
         profile = Profile.objects.get(user=common_user1)
+        post = Post.objects.create(
+            title="post title",
+            content="post body",
+            author=profile,
+        )
         task = Task.objects.create(
+            post=post,
             author=profile,
             title="test",
             status=True,
         )
-        url = reverse("todo:api-v1:task-detail", kwargs={"pk": task.id})
+        url = reverse("comment:api-v1:task-detail", kwargs={"pid": post.id, "pk": task.id})
 
         # GET:
         response_get = api_client.get(url)
@@ -111,12 +124,18 @@ class TestTaskDetailApi:
     def test_task_not_create_by_user(self, api_client, common_user1, common_user2):
         api_client.force_login(user=common_user2)
         profile = Profile.objects.get(user=common_user1)
+        post = Post.objects.create(
+            title="post title",
+            content="post body",
+            author=profile,
+        )
         task = Task.objects.create(
+            post=post,
             author=profile,
             title="test",
             status=True,
         )
-        url = reverse("todo:api-v1:task-detail", kwargs={"pk": task.id})
+        url = reverse("comment:api-v1:task-detail", kwargs={"pid": post.id, "pk": task.id})
 
         # GET:
         response_get = api_client.get(url)
