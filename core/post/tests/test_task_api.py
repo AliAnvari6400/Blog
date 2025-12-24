@@ -13,7 +13,7 @@ def api_client():
 
 @pytest.fixture
 def url():
-    url = reverse("todo:api-v1:task-list")
+    url = reverse("post:api-v1:task-list")
     return url
 
 

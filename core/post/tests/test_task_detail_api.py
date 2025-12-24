@@ -41,7 +41,7 @@ class TestTaskDetailApi:
             status=True,
         )
         api_client.logout()  # logout user for test unauthorized
-        url = reverse("todo:api-v1:task-detail", kwargs={"pk": task.id})
+        url = reverse("post:api-v1:task-detail", kwargs={"pk": task.id})
 
         # GET:
         response_get = api_client.get(url)
@@ -75,7 +75,7 @@ class TestTaskDetailApi:
             title="test",
             status=True,
         )
-        url = reverse("todo:api-v1:task-detail", kwargs={"pk": task.id})
+        url = reverse("post:api-v1:task-detail", kwargs={"pk": task.id})
 
         # GET:
         response_get = api_client.get(url)
@@ -116,7 +116,7 @@ class TestTaskDetailApi:
             title="test",
             status=True,
         )
-        url = reverse("todo:api-v1:task-detail", kwargs={"pk": task.id})
+        url = reverse("post:api-v1:task-detail", kwargs={"pk": task.id})
 
         # GET:
         response_get = api_client.get(url)
