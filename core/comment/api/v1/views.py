@@ -37,11 +37,13 @@ class TaskModelViewSet(viewsets.ModelViewSet):
         if not user or not user.is_authenticated:
             return Task.objects.none()  # Avoid 500
         return Task.objects.filter(author__user=user, post__id=pid)
-    
+
     def perform_create(self, serializer):
         post_id = self.kwargs["pid"]
         post = get_object_or_404(Post, id=post_id)
-        profile = Profile.objects.get(user=self.request.user)  # Fetch profile explicitly
+        profile = Profile.objects.get(
+            user=self.request.user
+        )  # Fetch profile explicitly
         serializer.save(post=post, author=profile)
 
 

@@ -4,7 +4,7 @@ import pytest
 
 from accounts.models import User, Profile
 from ..models import Task
-from blog.models import Post 
+from blog.models import Post
 
 
 @pytest.fixture
@@ -48,7 +48,9 @@ class TestTaskDetailApi:
             status=True,
         )
         api_client.logout()  # logout user for test unauthorized
-        url = reverse("comment:api-v1:task-detail", kwargs={"pid": post.id, "pk": task.id})
+        url = reverse(
+            "comment:api-v1:task-detail", kwargs={"pid": post.id, "pk": task.id}
+        )
 
         # GET:
         response_get = api_client.get(url)
@@ -88,7 +90,9 @@ class TestTaskDetailApi:
             title="test",
             status=True,
         )
-        url = reverse("comment:api-v1:task-detail", kwargs={"pid": post.id, "pk": task.id})
+        url = reverse(
+            "comment:api-v1:task-detail", kwargs={"pid": post.id, "pk": task.id}
+        )
 
         # GET:
         response_get = api_client.get(url)
@@ -135,7 +139,9 @@ class TestTaskDetailApi:
             title="test",
             status=True,
         )
-        url = reverse("comment:api-v1:task-detail", kwargs={"pid": post.id, "pk": task.id})
+        url = reverse(
+            "comment:api-v1:task-detail", kwargs={"pid": post.id, "pk": task.id}
+        )
 
         # GET:
         response_get = api_client.get(url)

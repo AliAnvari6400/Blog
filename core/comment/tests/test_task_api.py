@@ -4,13 +4,14 @@ import pytest
 
 from accounts.models import User, Profile
 from ..models import Task
-from blog.models import Post 
+from blog.models import Post
 
 
 @pytest.fixture
 def api_client():
     client = APIClient()
     return client
+
 
 @pytest.fixture
 def common_user():
@@ -37,16 +38,14 @@ def url(db, common_user):
         status=True,
     )
 
-    return reverse(
-        "comment:api-v1:task-detail",
-        kwargs={"pid": post.id, "pk": task.id}
-    )
+    return reverse("comment:api-v1:task-detail", kwargs={"pid": post.id, "pk": task.id})
+
 
 @pytest.fixture
 def url_post(db, common_user):
     profile, _ = Profile.objects.get_or_create(user=common_user)
     post = Post.objects.create(title="post title", content="post body", author=profile)
-    return reverse("comment:api-v1:task-list", kwargs={"pid": post.id}), post , profile
+    return reverse("comment:api-v1:task-list", kwargs={"pid": post.id}), post, profile
 
 
 @pytest.mark.django_db
@@ -81,12 +80,14 @@ class TestTaskApi:
     #     }
     #     response = api_client.post(url_post, data)
     #     assert response.status_code == 201
-        
-    def test_post_task_response_201(self, api_client, common_user, url_post): # POST with login user
+
+    def test_post_task_response_201(
+        self, api_client, common_user, url_post
+    ):  # POST with login user
         api_client.force_login(user=common_user)
         url, post, profile = url_post
         data = {
-            "author":profile.id,
+            "author": profile.id,
             "post": post.id,
             "title": "test",
             "status": True,
@@ -96,11 +97,11 @@ class TestTaskApi:
 
     def test_post_task_response_400(
         self, api_client, common_user, url_post
-    ):  # POST with incomplete data        
+    ):  # POST with incomplete data
         api_client.force_login(user=common_user)
         url, post, profile = url_post
         data = {
-            "author":profile.id,
+            "author": profile.id,
             "post": post.id,
             "title": "",
             "status": "test",
