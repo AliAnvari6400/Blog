@@ -17,6 +17,5 @@ urlpatterns = [
         PostCompleteView.as_view(),
         name="post-complete",
     ),
-    path("api/v1/", include("post.api.v1.urls")),   
+    path("api/v1/", include("post.api.v1.urls")),
 ]
-
