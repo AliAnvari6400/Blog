@@ -39,7 +39,7 @@
         <div class="col">
           <div class="card" id="list1" style="border-radius: .75rem; background-color: #eff1f2;">
             <div class="card-body py-4 px-4 px-md-5">
-
+              
               <a href="#" onclick="document.getElementById('logout-form').submit();" class="primary-btn">Logout</a>
               <form id="logout-form" action='{% url 'accounts:logout'%}' method="post" style="display:none;">
                 {% csrf_token %}
@@ -47,6 +47,9 @@
 
               {% comment %} <a href='{% url 'accounts:logout'%}'> Log Out </a> {% endcomment %}
               <p>{{request.user}}</p>
+
+              <p><a href="{% url 'blog:blog_home' %}"> back to blog page </a></p>
+              
               <p class="h1 text-center mt-3 mb-4 pb-3 text-primary">
                 {% comment %} <i class="fas fa-check-square me-1"></i> {% endcomment %}
                 Leave Your Comments ....
