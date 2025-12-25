@@ -18,7 +18,7 @@ app.autodiscover_tasks()
 # ---------------------------------
 app.conf.beat_schedule = {
     "run-every-minute": {
-        "task": "todo.tasks.test",  # path to task
+        "task": "comment.tasks.test",  # path to task
         "schedule": 5,
         # Or use 'schedule': 60.0 for seconds (every 60 seconds)
     },

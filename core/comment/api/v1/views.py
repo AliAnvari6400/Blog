@@ -53,19 +53,6 @@ class WeatherAPIView(APIView):
     # permission_classes = [IsAuthenticated]
     serializer_class = WeatherSerializer
 
-    # def get(self, request):
-    #     API_KEY = '6075f690e844e83ffc96d4ddf40c8b18'
-    #     city = 'Tehran'
-    #     url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
-    #     response = requests.get(url)
-
-    #     if response.status_code == 200:
-    #         data = response.json()
-    #         serializer = WeatherSerializer(data)
-    #         return Response(serializer.data)
-    #     else:
-    #         return Response({"error": "Failed to fetch weather data"},status=response.status_code)
-
     def get(self, request):
         API_KEY = "6075f690e844e83ffc96d4ddf40c8b18"
         city = "Tehran"

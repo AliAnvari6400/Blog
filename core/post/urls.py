@@ -4,9 +4,6 @@ from .views import (
     PostDeleteView,
     PostCompleteView,
     PostView,
-    test,
-    weather,
-    WeatherView,
 )
 
 app_name = "post"
@@ -20,11 +17,6 @@ urlpatterns = [
         PostCompleteView.as_view(),
         name="post-complete",
     ),
-    path("api/v1/", include("post.api.v1.urls")),
-    # Test Celery:
-    path("test/", test, name="test"),
-    # Test Redis for cache:
-    path("weather/", weather, name="weather"),
-    # Show graphical weather data:
-    path("weather_show/", WeatherView.as_view(), name="weather_show"),
+    path("api/v1/", include("post.api.v1.urls")),   
 ]
+

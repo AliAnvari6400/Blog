@@ -29,6 +29,6 @@ def task_delete():
 # Update Weather:
 @shared_task
 def update_weather():
-    url = "http://todoapp:8000/todo/api/v1/weather/"
+    url = "http://backend:8000/comment/api/v1/weather/"
     api_client = APIClient()
     api_client.get(url)
