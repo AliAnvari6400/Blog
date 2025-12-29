@@ -59,7 +59,7 @@ services:
   # Celery Worker:
   celery-worker:
     build: .
-    container_name: celery-worker
+    container_name: celery-worker2
     command: celery -A core worker --loglevel=info
     volumes:
       - ./core:/app
@@ -77,7 +77,7 @@ services:
   # Celery Beat:
   celery-beat:
     build: .
-    container_name: celery-beat
+    container_name: celery-beat2
     command: celery -A core beat --loglevel=info
     volumes:
       - ./core:/app
@@ -95,7 +95,7 @@ services:
   # nginx:
   nginx:
     image: nginx
-    container_name: nginx
+    container_name: nginx2
     ports: 
       - "80:80"
     restart: always
