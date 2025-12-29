@@ -49,7 +49,7 @@ services:
   
   # Redis:
   redis:
-    container_name: redis
+    container_name: redis2
     image: redis
     ports:
       - "6379:6379"
@@ -109,7 +109,7 @@ services:
 
   db:
     image: postgres:15
-    container_name: postgres_db
+    container_name: postgres_db2
     environment:
       POSTGRES_DB: mydatabase
       POSTGRES_USER: myuser
