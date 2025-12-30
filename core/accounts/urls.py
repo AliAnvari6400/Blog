@@ -1,14 +1,13 @@
 from django.urls import path, include
 from django.contrib.auth.views import LogoutView
 from .views import SignUpView
+from django.views.generic import RedirectView
 from .views import MyLoginView
-from blog.views import BlogHomeView
 
 app_name = "accounts"
 
 urlpatterns = [
-    path("", BlogHomeView.as_view()),
-    # path("", RedirectView.as_view(url="blog/", query_string=True, permanent=False)),
+    path("", RedirectView.as_view(url="blog/", query_string=True, permanent=False)),
     # path('',include('django.contrib.auth.urls')),
     path("login/", MyLoginView.as_view(), name="login"),
     path(
