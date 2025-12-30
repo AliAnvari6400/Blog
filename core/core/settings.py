@@ -34,7 +34,7 @@ DEBUG = config("DEBUG", cast=bool, default=True)
 # )
 
 # ALLOWED_HOSTS = ["188.121.119.203", "127.0.0.1"]
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "188.121.119.203"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "188.121.119.203", 'alianvari.ir', 'www.alianvari.ir']
 
 
 # Application definition
