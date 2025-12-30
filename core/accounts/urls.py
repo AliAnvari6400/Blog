@@ -7,7 +7,7 @@ from .views import MyLoginView
 app_name = "accounts"
 
 urlpatterns = [
-    path("", RedirectView.as_view(url="blog/", query_string=True)),
+    path("", RedirectView.as_view(url="blog/", query_string=True, permanent=False)),
     # path('',include('django.contrib.auth.urls')),
     path("login/", MyLoginView.as_view(), name="login"),
     path(
