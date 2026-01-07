@@ -129,7 +129,7 @@
                   <div class="text-end text-muted">
                     <a href="#!" class="text-muted" data-mdb-toggle="tooltip" title="Created date">
                       <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>{{task.created_date}}</p></a>
-                      <p><img src="{{ task.author.image.url }}" alt="Profile Image" style="width:80px; height:80px; border-radius:50%;"></p>
+                      <p>{% if task.author.image %}<img src="{{ task.author.image.url }}" alt="Profile Image" style="width:80px; height:80px; border-radius:50%;"> {% endif %}</p>
                       <p> {{task.author.first_name}} </p>
                   </div>
                 </li>

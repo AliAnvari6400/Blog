@@ -11,7 +11,7 @@
                         {% for comment in comments %}
                         <div class="single-post__comment__item">
                             <div class="single-post__comment__item__pic">
-                                <img src="{{ comment.author.image.url }}" alt="Profile Image" style="width:80px; height:80px; border-radius:50%;">
+                                {% if comment.author.image %}<img src="{{ comment.author.image.url }}" alt="Profile Image" style="width:80px; height:80px; border-radius:50%;">{% endif %}
                                 {% comment %} <img src="{% static "template2/img/categories/single-post/comment/comment-1.jpg" %}" alt=""> {% endcomment %}
                             </div> 
                             <div class="single-post__comment__item__text">
