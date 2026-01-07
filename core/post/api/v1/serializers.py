@@ -1,4 +1,4 @@
-from ...models import Task
+from blog.models import Post
 from accounts.models import Profile
 from rest_framework import serializers
 from datetime import datetime, timezone, timedelta
@@ -10,7 +10,7 @@ class TaskSerializer(serializers.ModelSerializer):
     absolute_url = serializers.SerializerMethodField(method_name="get_absolute_url")
 
     class Meta:
-        model = Task
+        model = Post
         fields = [
             "author",
             "title",

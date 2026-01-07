@@ -1,5 +1,5 @@
 from .serializers import TaskSerializer, WeatherSerializer
-from ...models import Task
+from blog.models import Post
 from rest_framework import viewsets, filters
 from rest_framework.permissions import IsAuthenticated
 
@@ -40,8 +40,8 @@ class TaskModelViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         if not user or not user.is_authenticated:
-            return Task.objects.none()  # Avoid 500
-        return Task.objects.filter(author__user=user)
+            return Post.objects.none()  # Avoid 500
+        return Post.objects.filter(author__user=user)
 
 
 # Weather API:
