@@ -20,6 +20,7 @@ services:
       - "8000"
     restart: always
     environment:
+      - ALLOWED_HOSTS=localhost,127.0.0.1,188.121.119.203,alianvari.ir,www.alianvari.ir
       - SECRET_KEY=test
       - DEBUG=True
       - DB_NAME=mydatabase
