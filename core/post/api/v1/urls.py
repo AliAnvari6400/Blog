@@ -1,11 +1,11 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import TaskModelViewSet, WeatherAPIView
+from .views import PostModelViewSet, WeatherAPIView
 
 app_name = "api-v1"
 
 router = DefaultRouter()
-router.register("task", TaskModelViewSet, basename="task")
+router.register("post", PostModelViewSet, basename="post")
 
 urlpatterns = [
     path("", include(router.urls)),

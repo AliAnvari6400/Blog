@@ -4,7 +4,7 @@ from rest_framework import serializers
 from datetime import datetime, timezone, timedelta
 
 
-class TaskSerializer(serializers.ModelSerializer):
+class PostSerializer(serializers.ModelSerializer):
     snippet = serializers.ReadOnlyField(source="get_snippet")
     relative_url = serializers.URLField(source="get_absolute_api_url", read_only=True)
     absolute_url = serializers.SerializerMethodField(method_name="get_absolute_url")
@@ -14,6 +14,10 @@ class TaskSerializer(serializers.ModelSerializer):
         fields = [
             "author",
             "title",
+            "content",
+            # "tags",
+            "category",
+            "counted_views",
             "snippet",
             "relative_url",
             "absolute_url",
@@ -22,7 +26,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "updated_date",
         ]
         read_only_fields = ["author"]
-        ref_name = "PostTaskSerializer"
+        ref_name = "PostSerializer"
 
     def get_absolute_url(self, obj):
         request = self.context.get("request")

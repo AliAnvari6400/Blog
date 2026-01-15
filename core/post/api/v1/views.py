@@ -1,4 +1,4 @@
-from .serializers import TaskSerializer, WeatherSerializer
+from .serializers import PostSerializer, WeatherSerializer
 from blog.models import Post
 from rest_framework import viewsets, filters
 from rest_framework.permissions import IsAuthenticated
@@ -16,10 +16,10 @@ from rest_framework.response import Response
 from django.core.cache import cache
 
 
-class TaskModelViewSet(viewsets.ModelViewSet):
+class PostModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     # , IsOwnerOrReadOnly]
-    serializer_class = TaskSerializer
+    serializer_class = PostSerializer
     # queryset = Task.objects.all()
 
     filter_backends = [
