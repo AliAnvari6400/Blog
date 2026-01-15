@@ -16,7 +16,7 @@ sitemaps = {"static": StaticViewSitemap, "blog": BlogSitemap}
 # for api document
 schema_view = get_schema_view(
     openapi.Info(
-        title="ToDoApp API",
+        title="Blog API",
         default_version="v1",
         description="API documentation",
         terms_of_service="https://www.google.com/policies/terms/",
