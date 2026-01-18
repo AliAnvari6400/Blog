@@ -1,15 +1,13 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
 )
 from .forms import ProfileForm
 from .models import Profile
-from django.contrib.auth.models import Permission
-from django.contrib.contenttypes.models import ContentType
 
 User = get_user_model()
 
@@ -22,7 +20,7 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 # Profile:
-class ProfileView(CreateView, LoginRequiredMixin):
+class ProfileView(UpdateView, LoginRequiredMixin):
     model = Profile
     form_class = ProfileForm
     template_name = "registration/profile.html"
@@ -30,15 +28,9 @@ class ProfileView(CreateView, LoginRequiredMixin):
         "website:index"
     )  # Redirect to website page after complete profile
 
-    def form_valid(self, form):
-        self.object = form.save()
-        user = self.request.user
-        content_type = ContentType.objects.get_for_model(Profile)
-        view_permission = Permission.objects.get(
-            codename="view_profile", content_type=content_type
-        )
-        user.user_permissions.add(view_permission)
-        return super().form_valid(form)
+    def get_queryset(self):
+        pk = self.kwargs["pk"]
+        return Profile.objects.filter(user__id=pk)
 
 
 # Signup

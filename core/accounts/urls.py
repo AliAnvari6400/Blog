@@ -16,6 +16,6 @@ urlpatterns = [
         name="logout",
     ),
     path("signup/", SignUpView.as_view(), name="signup"),
-    path("profile/", ProfileView.as_view(), name="profile"),
+    path("<int:pk>/profile/", ProfileView.as_view(), name="profile"),
     path("api/v1/", include("accounts.api.v1.urls")),
 ]

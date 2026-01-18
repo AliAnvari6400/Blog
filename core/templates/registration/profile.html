@@ -72,7 +72,7 @@
                         </div> {% endcomment %}
                         <div class="tab-pane active" id="tabs-2" role="tabpanel">
                             <div class="signin__form__text">
-                                <form action="{% url 'accounts:profile' %}" method="POST" enctype="multipart/form-data">
+                                <form action="{% url 'accounts:profile' pk=request.user.id %}" method="POST" >
                                     {% csrf_token %}
                                     {{ form.as_p }}
                                     {% comment %} <input type="email" name="user" value= {{request.user}} required>
