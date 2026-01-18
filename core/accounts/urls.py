@@ -1,6 +1,6 @@
 from django.urls import path, include
 from django.contrib.auth.views import LogoutView
-from .views import SignUpView
+from .views import SignUpView, ProfileView
 from django.views.generic import RedirectView
 from .views import MyLoginView
 
@@ -16,5 +16,6 @@ urlpatterns = [
         name="logout",
     ),
     path("signup/", SignUpView.as_view(), name="signup"),
+    path("profile/", ProfileView.as_view(), name="profile"),
     path("api/v1/", include("accounts.api.v1.urls")),
 ]
