@@ -3,7 +3,7 @@ from faker import Faker
 import random
 
 from accounts.models import User, Profile
-from blog.models import Post
+from blog.models import Post, Category
 from comment.models import Task
 
 
@@ -28,7 +28,10 @@ class Command(BaseCommand):
         profile.save()
 
         # Define random category:
-        # category = Category.objects.create(name=self.fake.first_name())
+        if not Category.objects.exists():
+            Category.objects.create(name=self.fake.word())
+
+        categories = list(Category.objects.all())
 
         # Create 5 Tasks in database:
         for _ in range(5):
@@ -37,8 +40,11 @@ class Command(BaseCommand):
                 title=self.fake.paragraph(nb_sentences=1),
                 status=random.choice([True, False]),
                 content=self.fake.paragraph(nb_sentences=2),
-                # category=
             )
+
+            # Assign category AFTER creation
+            post.category.set([random.choice(categories)])
+
             for _ in range(5):
                 Task.objects.create(
                     author=profile,
