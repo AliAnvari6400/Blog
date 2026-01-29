@@ -217,12 +217,12 @@ SIMPLE_JWT = {
 # DEFAULT_FROM_EMAIL = 'alianvari@example.com'
 
 # Setting for smtp4dev:
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp4dev"
-EMAIL_PORT = 25
-EMAIL_USE_TLS = False
-EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWORD = ""
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_HOST = "smtp4dev"
+# EMAIL_PORT = 25
+# EMAIL_USE_TLS = False
+# EMAIL_HOST_USER = ""
+# EMAIL_HOST_PASSWORD = ""
 
 # api access:
 CORS_ALLOWED_ORIGINS = [
@@ -290,7 +290,7 @@ MULTI_CAPTCHA_ADMIN = {
 }
 
 
-# Email:
+# Email by gmail:
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True

@@ -291,7 +291,7 @@ class ResetPasswordRequestAPIView(GenericAPIView):
 
         # reset url
         reset_url = (
-            f"http://127.0.0.1:8000/accounts/api/v1/reset-password/confirm/{token}/"
+            f"http://188.121.119.203/accounts/api/v1/reset-password/confirm/{token}/"
         )
 
         # Prepare email content
