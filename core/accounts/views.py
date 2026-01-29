@@ -8,6 +8,12 @@ from django.contrib.auth.mixins import (
 )
 from .forms import ProfileForm
 from .models import Profile
+from django.contrib.auth import logout
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+from django.views.decorators.csrf import csrf_exempt
 
 User = get_user_model()
 
@@ -49,3 +55,17 @@ class MyLoginView(LoginView):
         if next_url:
             return next_url
         return reverse_lazy("blog:blog_home")
+
+
+# Seperate logout for swagger only:
+@csrf_exempt  # optional if using session auth
+@swagger_auto_schema(
+    method="post",
+    operation_summary="Logout (Swagger-only)",
+    operation_description="Logs out the current user via Swagger-only endpoint.",
+    responses={200: openapi.Response("Successfully logged out")},
+)
+@api_view(["POST"])
+def swagger_logout_view(request):
+    logout(request)
+    return Response({"detail": "Successfully logged out"})
