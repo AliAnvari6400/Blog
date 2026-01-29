@@ -12,7 +12,7 @@ class Category(models.Model):
 
 
 class Post(models.Model):
-    image = models.ImageField(upload_to="blog/", blank=True, null=True)
+    image = models.ImageField(upload_to="blog/", blank=True, null=True, default="blog/cl-1.jpg")
     author = models.ForeignKey("accounts.Profile", on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=255)
     content = models.TextField()
